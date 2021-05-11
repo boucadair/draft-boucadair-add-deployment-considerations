@@ -35,8 +35,8 @@
      docName="draft-boucadair-deployment-considerations-latest"
      ipr="trust200902">
   <front>
-    <title abbrev="Discovery of Network-designated Resolvers">Discovery of
-    Network-designated Resolvers (DNR): Deployment Considerations</title>
+    <title abbrev="Discovery of Encrypted DNS Resolvers">Discovery of
+    Encrypted DNS Resolvers: Deployment Considerations</title>
 
     <author fullname="Mohamed Boucadair" initials="M." role="editor"
             surname="Boucadair">
@@ -125,16 +125,10 @@
     <workgroup>ADD</workgroup>
 
     <abstract>
-      <t>The document discusses some deployment considerations of DHCP and
-      IPv6 Router Advertisement options that are used to discover encrypted
-      DNS servers (e.g., DNS-over-HTTPS, DNS-over-TLS, DNS-over-QUIC). </t>
+      <t>The document discusses some deployment considerations of the various
+      options to discover encrypted DNS servers (e.g., DNS-over-HTTPS,
+      DNS-over-TLS, DNS-over-QUIC).</t>
     </abstract>
-
-    <note title="[[Scope]]">
-      <t>This initial version focuses on DNR as this text was moved from the
-      <xref target="I-D.ietf-add-dnr"></xref>. Future versions may cover both
-      DNR and DDR.</t>
-    </note>
   </front>
 
   <middle>
@@ -532,37 +526,12 @@ Legend:
       DNS server hosted by the ISP, in particular. If the ADN is not
       discovered using DHCP/RA, such hosts will have to fallback to use
       discovery using the resolver IP address as defined in Section 4 of <xref
-      target="I-D.ietf-add-ddr"></xref> to discover the designated resolvers.
-      </t>
+      target="I-D.ietf-add-ddr"></xref> to discover the designated
+      resolvers.</t>
 
       <t>The guidance in Sections 4.1 and 4.2 of <xref
       target="I-D.ietf-add-ddr"></xref> related to the designated resolver
       verification has to be followed in such case.</t>
-    </section>
-
-    <section anchor="Auto"
-             title="Make Use of Discovered Encrypted DNS Servers">
-      <t>The following discusses typical conditions under which discovered
-      encrypted DNS server can be used. <list style="symbols">
-          <t>If the DNS server's IP address discovered by using DHCP/RA is
-          preconfigured in the OS or Browser as a verified resolver (e.g.,
-          part of an auto-upgrade program such as <xref
-          target="Auto-upgrade"></xref>), the DNS client auto-upgrades to use
-          the preconfigured encrypted DNS server tied to the discovered DNS
-          server IP address. In such a case the DNS client will perform
-          additional checks out of band, such as confirming that the Do53 IP
-          address and the encrypted DNS server are owned and operated by the
-          same organisation.</t>
-
-          <t>Similarly, if the ADN conveyed in DHCP/RA (Sections 4, 5, and 6
-          of <xref target="I-D.ietf-add-dnr"></xref>) is preconfigured in the
-          OS or browser as a verified resolver, the DNS client auto-upgrades
-          to establish an encrypted a DoH/DoT/DoQ session with the ADN.<vspace
-          blankLines="1" />In such case, the DNS client matches the domain
-          name in the Encrypted DNS DHCP/RA option with the 'DNS-ID'
-          identifier type within subjectAltName entry in the server
-          certificate conveyed in the TLS handshake.</t>
-        </list></t>
     </section>
 
     <section anchor="Security" title="Security Considerations">
@@ -576,7 +545,7 @@ Legend:
 
     <section title="Acknowledgements">
       <t>This text was initially part of <xref
-      target="I-D.ietf-add-dnr"></xref>. </t>
+      target="I-D.ietf-add-dnr"></xref>.</t>
     </section>
   </middle>
 
