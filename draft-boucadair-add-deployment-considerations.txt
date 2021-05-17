@@ -5,18 +5,18 @@
 ADD                                                    M. Boucadair, Ed.
 Internet-Draft                                                    Orange
 Intended status: Informational                             T. Reddy, Ed.
-Expires: November 12, 2021                                        McAfee
+Expires: November 18, 2021                                        McAfee
                                                                  D. Wing
                                                                   Citrix
                                                                  N. Cook
                                                             Open-Xchange
                                                                T. Jensen
                                                                Microsoft
-                                                            May 11, 2021
+                                                            May 17, 2021
 
 
     Discovery of Encrypted DNS Resolvers: Deployment Considerations
-            draft-boucadair-deployment-considerations-latest
+          draft-boucadair-add-deployment-considerations-latest
 
 Abstract
 
@@ -39,7 +39,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 12, 2021.
+   This Internet-Draft will expire on November 18, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Boucadair, et al.       Expires November 12, 2021               [Page 1]
+Boucadair, et al.       Expires November 18, 2021               [Page 1]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Boucadair, et al.       Expires November 12, 2021               [Page 2]
+Boucadair, et al.       Expires November 18, 2021               [Page 2]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
@@ -165,7 +165,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
 
 
-Boucadair, et al.       Expires November 12, 2021               [Page 3]
+Boucadair, et al.       Expires November 18, 2021               [Page 3]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
@@ -221,7 +221,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
 
 
-Boucadair, et al.       Expires November 12, 2021               [Page 4]
+Boucadair, et al.       Expires November 18, 2021               [Page 4]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
@@ -277,7 +277,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
 
 
-Boucadair, et al.       Expires November 12, 2021               [Page 5]
+Boucadair, et al.       Expires November 18, 2021               [Page 5]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
@@ -333,7 +333,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
 
 
-Boucadair, et al.       Expires November 12, 2021               [Page 6]
+Boucadair, et al.       Expires November 18, 2021               [Page 6]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
@@ -389,7 +389,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
 
 
-Boucadair, et al.       Expires November 12, 2021               [Page 7]
+Boucadair, et al.       Expires November 18, 2021               [Page 7]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
@@ -445,7 +445,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
 
 
-Boucadair, et al.       Expires November 12, 2021               [Page 8]
+Boucadair, et al.       Expires November 18, 2021               [Page 8]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
@@ -501,7 +501,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
 
 
-Boucadair, et al.       Expires November 12, 2021               [Page 9]
+Boucadair, et al.       Expires November 18, 2021               [Page 9]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
@@ -557,7 +557,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
 
 
-Boucadair, et al.       Expires November 12, 2021              [Page 10]
+Boucadair, et al.       Expires November 18, 2021              [Page 10]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
@@ -571,11 +571,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
               ietf-add-dnr-00 (work in progress), February 2021.
 
 9.2.  Informative References
-
-   [Auto-upgrade]
-              The Unicode Consortium, "DoH providers: criteria, process
-              for Chrome", <docs.google.com/document/
-              d/128i2YTV2C7T6Gr3I-81zlQ-_Lprnsp24qzy_20Z1Psw/edit>.
 
    [I-D.ietf-add-ddr]
               Pauly, T., Kinnear, E., Wood, C. A., McManus, P., and T.
@@ -611,17 +606,17 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
               Layer Security (TLS)", RFC 7858, DOI 10.17487/RFC7858, May
               2016, <https://www.rfc-editor.org/info/rfc7858>.
 
-
-
-Boucadair, et al.       Expires November 12, 2021              [Page 11]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
-
-
    [RFC8106]  Jeong, J., Park, S., Beloeil, L., and S. Madanapalli,
               "IPv6 Router Advertisement Options for DNS Configuration",
               RFC 8106, DOI 10.17487/RFC8106, March 2017,
               <https://www.rfc-editor.org/info/rfc8106>.
+
+
+
+Boucadair, et al.       Expires November 18, 2021              [Page 11]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
+
 
    [RFC8415]  Mrugalski, T., Siodelski, M., Volz, B., Yourtchenko, A.,
               Richardson, M., Jiang, S., Lemon, T., and T. Winters,
@@ -669,7 +664,12 @@ Authors' Addresses
 
 
 
-Boucadair, et al.       Expires November 12, 2021              [Page 12]
+
+
+
+
+
+Boucadair, et al.       Expires November 18, 2021              [Page 12]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
@@ -725,4 +725,4 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers          May 2021
 
 
 
-Boucadair, et al.       Expires November 12, 2021              [Page 13]
+Boucadair, et al.       Expires November 18, 2021              [Page 13]

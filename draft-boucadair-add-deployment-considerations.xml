@@ -32,7 +32,7 @@
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
 <rfc category="info"
-     docName="draft-boucadair-deployment-considerations-latest"
+     docName="draft-boucadair-add-deployment-considerations-latest"
      ipr="trust200902">
   <front>
     <title abbrev="Discovery of Encrypted DNS Resolvers">Discovery of
@@ -608,19 +608,6 @@ Legend:
           </author>
 
           <date day="0" month="December" year="2019" />
-        </front>
-      </reference>
-
-      <reference anchor="Auto-upgrade"
-                 target="docs.google.com/document/d/128i2YTV2C7T6Gr3I-81zlQ-_Lprnsp24qzy_20Z1Psw/edit">
-        <front>
-          <title>DoH providers: criteria, process for Chrome</title>
-
-          <author>
-            <organization>The Unicode Consortium</organization>
-          </author>
-
-          <date day="" month="" year="" />
         </front>
       </reference>
     </references>
