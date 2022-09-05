@@ -126,7 +126,7 @@
 
     <abstract>
       <t>The document discusses some deployment considerations of the various
-      options to discover encrypted DNS servers (e.g., DNS-over-HTTPS,
+      options to discover encrypted DNS resolvers (e.g., DNS-over-HTTPS,
       DNS-over-TLS, DNS-over-QUIC).</t>
     </abstract>
   </front>
@@ -134,18 +134,18 @@
   <middle>
     <section anchor="intro" title="Introduction">
       <t><xref target="I-D.ietf-add-dnr"></xref> specifies how a local
-      encrypted DNS server can be discovered by connected hosts by means of
+      encrypted DNS resolver can be discovered by connected hosts by means of
       DHCP <xref target="RFC2132"></xref>, DHCPv6 <xref
       target="RFC8415"></xref>, and IPv6 Router Advertisement (RA) <xref
       target="RFC4861"></xref> options. These options are designed to convey
       the following information: the DNS Authentication Domain Name (ADN), a
       list of IP addresses, and a set of service parameters.</t>
 
-      <t>This document discusses deployment considerations for the discovery
-      of encrypted DNS servers such as DNS-over-HTTPS (DoH) <xref
+      <t>This document discusses some deployment considerations for the
+      discovery of encrypted DNS resolvers such as DNS-over-HTTPS (DoH) <xref
       target="RFC8484"></xref>, DNS-over-TLS (DoT) <xref
       target="RFC7858"></xref>, or DNS-over-QUIC (DoQ) <xref
-      target="I-D.ietf-dprive-dnsoquic"></xref> in local networks.</t>
+      target="RFC9250"></xref> in local networks.</t>
 
       <t>Sample target deployment scenarios are discussed in <xref
       target="depl"></xref>; both managed and unmanaged Customer Premises
@@ -165,10 +165,7 @@
 
           <t hangText="Encrypted DNS:">refers to a scheme where DNS exchanges
           are transported over an encrypted channel. Examples of encrypted DNS
-          are DNS-over-TLS (DoT) <xref target="RFC7858"></xref>,
-          DNS-over-HTTPS (DoH) <xref target="RFC8484"></xref>, or
-          DNS-over-QUIC (DoQ) <xref
-          target="I-D.ietf-dprive-dnsoquic"></xref>.</t>
+          are DoT, DoH, or DoQ.</t>
 
           <t hangText="Encrypted DNS options:">refers to the options defined
           in <xref target="I-D.ietf-add-dnr"></xref>.</t>
@@ -184,8 +181,8 @@
     </section>
 
     <section anchor="depl" title="Sample Target Deployment Scenarios">
-      <t>ISPs traditionally provide DNS resolvers to their customers. To that
-      aim, ISPs deploy the following mechanisms to advertise a list of DNS
+      <t>ISPs usually provide DNS resolvers to their customers. To that aim,
+      ISPs deploy the following mechanisms to advertise a list of DNS
       Recursive DNS server(s) to their customers:</t>
 
       <t><list style="symbols">
@@ -204,23 +201,26 @@
       <t>The communication between a customer's device (possibly via Customer
       Premises Equipment (CPE)) and an ISP-supplied DNS resolver takes place
       by using cleartext DNS messages (Do53). Some examples are depicted in
-      <xref target="do53"></xref>. In the case of cellular networks, the
-      cellular network will provide connectivity directly to a host (e.g.,
-      smartphone, tablet) or via a CPE. Do53 mechanisms used within the Local
-      Area Network (LAN) are similar in both fixed and cellular CPE-based
-      broadband service offerings.</t>
+      cases (a) and (c) in <xref target="do53"></xref>. In the case of
+      cellular networks, the cellular network will provide connectivity
+      directly to a host (e.g., smartphone, tablet) or via a CPE. Do53
+      mechanisms used within the Local Area Network (LAN) are similar in both
+      fixed and cellular CPE-based broadband service offerings.</t>
 
       <t>Some ISPs rely upon external resolvers (e.g., outsourced service or
       public resolvers); these ISPs provide their customers with the IP
-      addresses of these resolvers. These addresses are typically configured
-      on CPEs using dedicated management tools. Likewise, users can modify the
-      default DNS configuration of their CPEs (e.g., supplied by their ISP) to
-      configure their favorite DNS servers. This document permits such
-      deployments.</t>
+      addresses of these external resolvers. An example is depicted in cases
+      (b) and (d) in <xref target="do53"></xref>. </t>
+
+      <t>The addresses of DNS resolver can also be configured on CPEs using
+      dedicated management tools. As such, users can modify the default DNS
+      configuration of their CPEs (e.g., supplied by their ISP) to configure
+      their favorite DNS servers. This document permits such deployments.</t>
 
       <t><figure align="center" anchor="do53"
           title="Sample Legacy Deployments">
-          <artwork align="center"><![CDATA[(a) Fixed Networks
+          <artwork align="center"><![CDATA[(a) Fixed Networks with a local DNS resolver
+
                                  ,--,--,--.
     +-+      LAN     +---+    ,-'           `-. 
     |H+--------------+CPE+---+      ISP        )
@@ -230,7 +230,18 @@
      |<=============Do53============>| 
      |                               |
 
-(b) Cellular Networks
+(b) Fixed Networks with a 3rd party DNS resolver
+
+                                 ,--,--,--.
+    +-+      LAN     +---+    ,-'           `-.      3rd Party
+    |H+--------------+CPE+---+      ISP        )--- DNS Server
+    +-+              +---+    `-.          ,-'         |
+     |                           `--'--'--'            |
+     |                                                 |
+     |<========================Do53===================>| 
+     |                                                 |
+
+(c) Cellular Networks with a local DNS resolver
 
      |                               |
      |<=============Do53============>| 
@@ -248,6 +259,24 @@
      |<=============Do53============>| 
      |                               |
 
+(d) Cellular Networks with a 3rd party DNS resolver
+
+     |                                               |
+     |<==================Do53=======================>| 
+     |                                               |  
+     |                           ,--,--,-.           |
+    +-+      LAN     +---+    ,-'         .          |
+    |H+--------------+CPE+---+             \         |
+    +-+              +---+  ,'     ISP     `-.    3rd Party
+                            (                )--- DNS Server
+                       +-----+-.          ,-'        |
+    +-+                |        `--'--'--'           |
+    |H+----------------+                             |
+    +-+                                              |
+     |                                               |
+     |<==================Do53=======================>| 
+     |                                               |
+
 Legend:
  * H: refers to a host.
 ]]></artwork>
@@ -260,16 +289,16 @@ Legend:
           <t>ISPs have developed an expertise in managing service-specific
           configuration information (e.g., CPE WAN Management Protocol <xref
           target="TR-069"></xref>). For example, these tools may be used to
-          provision the DNS server's ADN to managed CPEs if an encrypted DNS
-          is supported by a local network similar to what is depicted in <xref
-          target="wan"></xref>.</t>
+          provision the DNS server's ADN and additional service parameters to
+          managed CPEs if an encrypted DNS is supported by a local network
+          similar to what is depicted in <xref target="wan"></xref>. </t>
 
           <t>For example, DoH-capable (or DoT) clients establish the DoH (or
           DoT) session with the discovered DoH (or DoT) server.</t>
 
           <t>The DNS client discovers whether the DNS server in the local
-          network supports DoH/DoT/DoQ by using the service paramters
-          (ALPN).</t>
+          network supports a given encrypted DNS scheme (e.g., DoT or DoH) by
+          using the service paramters (ALPN).</t>
 
           <t><figure align="center" anchor="wan"
               title="Encrypted DNS in the WAN">
@@ -304,12 +333,12 @@ Legend:
             </figure></t>
 
           <t><xref target="wan"></xref> shows the scenario where the CPE
-          relays the list of encrypted DNS servers it learns for the network
-          by using mechanisms like DHCP or a specific Router Advertisement
-          message. In such context, direct encrypted DNS sessions will be
-          established between a host serviced by a CPE and an ISP-supplied
-          encrypted DNS server (see the example depicted in <xref
-          target="direct"></xref> for a DoH/DoT-capable host).</t>
+          relays the list of encrypted DNS resolvers it learns for the network
+          by using DNR <xref target="I-D.ietf-add-dnr"></xref>. In such
+          contexts, direct encrypted DNS sessions will be established between
+          a host serviced by a CPE and an ISP-supplied encrypted DNS resolver
+          (see the example depicted in <xref target="direct"></xref> for an
+          encrypted DNS capable host).</t>
 
           <t><figure align="center" anchor="direct"
               title="Direct Encrypted DNS Sessions">
@@ -321,6 +350,7 @@ Legend:
              |        `--'--'--'             `--'--'--'
              |                                   | 
              |<=========Encrypted DNS===========>|
+             |                                   | 
 ]]></artwork>
             </figure></t>
 
@@ -331,11 +361,11 @@ Legend:
           <t><xref target="proxied"></xref> shows a deployment where the CPE
           embeds a caching DNS forwarder. The CPE advertises itself as the
           default DNS server to the hosts it serves. The CPE relies upon DHCP
-          or RA to advertise itself to internal hosts as the default
-          DoT/DoH/Do53 server. When receiving a DNS request it cannot handle
-          locally, the CPE forwards the request to an upstream DoH/DoT/Do53
-          resolver. Such deployment is required for IPv4 service continuity
-          purposes (e.g., Section 5.4.1 of <xref
+          or RA to advertise itself to internal hosts as the default encrypted
+          DNS or Do53 resolver. When receiving a DNS request it cannot handle
+          locally, the CPE forwards the request to an upstream encrypted DNS
+          or Do53 resolver. Such a deployment is required for IPv4 service
+          continuity purposes (e.g., Section 5.4.1 of <xref
           target="I-D.ietf-v6ops-rfc7084-bis"></xref>) or for supporting
           advanced services within a local network (e.g., malware filtering,
           parental control, Manufacturer Usage Description (MUD) <xref
@@ -356,6 +386,7 @@ Legend:
           <t><figure align="center" anchor="proxied"
               title="Proxied Encrypted DNS Sessions">
               <artwork><![CDATA[(a)
+
                       ,--,--,--.             ,--,--,--.
                    ,-'          `-.       ,-'   ISP    `-.
            Host---(      LAN      CPE----(    DNS Server  )
@@ -374,6 +405,28 @@ Legend:
              |                     |             | 
              |<=======Do53========>|<=Encrypted=>| 
              |                     |     DNS     | 
+
+(c)
+
+                  ,--,--,--.             ,--,--,--.
+               ,-'          `-.       ,-'   ISP    `-.      3rd Party
+       Host---(      LAN      CPE----(    DNS Server  )--- DNS Server
+         |     `-.          ,-'|      `-.          ,-'        |
+         |        `--'--'--'   |         `--'--'--'           |
+         |                     |                              | 
+         |<=====Encrypted=====>|<=========Encrypted DNS======>| 
+         |         DNS         |                              | 
+
+(d)
+
+                  ,--,--,--.             ,--,--,--.
+               ,-'          `-.       ,-'   ISP    `-.      3rd Party
+       Host---(      LAN      CPE----(    DNS Server  )--- DNS Server
+         |     `-.          ,-'|      `-.          ,-'        |
+         |        `--'--'--'   |         `--'--'--'           |
+         |                     |                              | 
+         |<========Do53=======>|<=========Encrypted DNS======>| 
+         |                     |                              | 
 ]]></artwork>
             </figure></t>
 
@@ -392,9 +445,9 @@ Legend:
           (including the DNS information) by means of, e.g., DHCP. That DNS
           information is shared within the LAN following the same mechanisms
           as those discussed in <xref target="mcpe"></xref>. A host can thus
-          establish DoH/DoT session with a DoH/DoT server similar to what is
-          depicted in <xref target="direct"></xref> or <xref
-          target="proxied"></xref>.</t>
+          establish encrypted DNS sessions with encrypted DNS resolvers
+          similar to what is depicted in <xref target="direct"></xref> or
+          <xref target="proxied"></xref>.</t>
         </section>
 
         <section title="Internal Unmanaged CPEs">
@@ -417,6 +470,7 @@ Host--(    Network#A   CPE----CPE---(    DNS Server   )
  |        `--'--'--'                    `--'--'--'
  |                                          | 
  |<==============Encrypted DNS=============>|
+ |                                          | 
 ]]></artwork>
             </figure></t>
 
@@ -435,6 +489,7 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Server
  |       `-'--'--'                   `--'           |
  |                                                  | 
  |<=================Encrypted DNS==================>|
+ |                                                  | 
 ]]></artwork>
             </figure></t>
 
@@ -456,10 +511,10 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Server
 
         <section title="DNS Forwarders">
           <t>The managed CPE should support a configuration parameter to
-          instruct the CPE whether it has to relay the encrypted DNS server
+          instruct the CPE whether it has to relay the encrypted DNS resolver
           received from the ISP's network or has to announce itself as a
           forwarder within the local network. The default behavior of the CPE
-          is to supply the encrypted DNS server received from the ISP's
+          is to supply the encrypted DNS resolver received from the ISP's
           network.</t>
         </section>
 
@@ -479,15 +534,15 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Server
 
         <t>The unmanaged CPE administrator can host an encrypted DNS forwarder
         on the unmanaged CPE. This assumes the following:<list style="symbols">
-            <t>The encrypted DNS server certificate is managed by the entity
+            <t>The encrypted DNS resolver certificate is managed by the entity
             in-charge of hosting the encrypted DNS forwarder. <vspace
             blankLines="1" />Alternatively, a security service provider can
             assign a unique FQDN to the CPE. The encrypted DNS forwarder will
-            act like a private encrypted DNS server only be accessible from
+            act like a private encrypted DNS resolver only be accessible from
             within the local network.</t>
 
             <t>The encrypted DNS forwarder will either be configured to use
-            the ISP's or a 3rd party encrypted DNS server.</t>
+            the ISP's or a 3rd party encrypted DNS resolver.</t>
 
             <t>The unmanaged CPE will advertise the encrypted DNS forwarder
             ADN using DHCP/RA to internal hosts.</t>
@@ -495,7 +550,7 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Server
 
         <t><xref target="internal_forwarded"></xref> illustrates an example of
         an unmanaged CPE hosting a forwarder which connects to a 3rd party
-        encrypted DNS server. In this example, the DNS information received
+        encrypted DNS resolver. In this example, the DNS information received
         from the managed CPE (and therefore from the ISP) is ignored by the
         Internal CPE hosting the forwarder.</t>
 
@@ -508,8 +563,9 @@ Host--(  Network#A  CPE--------CPE------(   ISP   )--- DNS Server
  |       `-'--'--'   |          |<==DHCP==>|`--'         |
  |                   |<==DHCP==>|          |             | 
  |<======DHCP=======>|          |                        |
- |     {RI, @i}      |                                   |
+ |    {ADN, @i}      |                                   |
  |<==Encrypted DNS==>|<==========Encrypted DNS==========>|
+ |                   |                                   |
 
 Legend:
   * @i: IP address of the DNS forwarder hosted in the Internal
@@ -523,7 +579,7 @@ Legend:
       <t>Hosts serviced by legacy CPEs that can't be upgraded to support the
       options defined in Sections 4, 5, and 6 of <xref
       target="I-D.ietf-add-dnr"></xref> won't be able to learn the encrypted
-      DNS server hosted by the ISP, in particular. If the ADN is not
+      DNS resolver hosted by the ISP, in particular. If the ADN is not
       discovered using DHCP/RA, such hosts will have to fallback to use
       discovery using the resolver IP address as defined in Section 4 of <xref
       target="I-D.ietf-add-ddr"></xref> to discover the designated
@@ -569,7 +625,7 @@ Legend:
 
       <?rfc include='reference.RFC.8484'?>
 
-      <?rfc include='reference.I-D.ietf-dprive-dnsoquic'?>
+      <?rfc include='reference.RFC.9250'?>
 
       <?rfc include='reference.I-D.ietf-v6ops-rfc7084-bis' ?>
 
