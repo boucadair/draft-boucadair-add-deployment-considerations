@@ -130,7 +130,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    Considerations related to hosting a DNS forwarder in a local network
    are described in Section 4.  In contexts where CPEs can't be upgraded
    to support DNR, Discovery of Designated Resolvers (DDR)
-   [I-D.ietf-add-ddr] can be used.  See Section 5 for more details.
+   [I-D.ietf-add-ddr] can be used.  See .
 
    Techniques, such as the one defined in
    [I-D.boucadair-opsawg-add-encrypted-dns], can be enabled together
