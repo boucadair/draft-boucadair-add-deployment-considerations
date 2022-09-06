@@ -126,27 +126,28 @@
       <t>The document discusses some deployment considerations of the various
       options to discover encrypted DNS resolvers (e.g., DNS-over-HTTPS,
       DNS-over-TLS, DNS-over-QUIC). Particularly, this document is meant to
-      exemplify how Discovery of Network-designated Resolvers (DNR) can be
-      used in typical deployment contexts. </t>
+      exemplify how Discovery of Network-designated Resolvers (DNR) and
+      Discovery of Designated Resolvers (DDR) can be used in typical
+      deployment contexts. </t>
     </abstract>
   </front>
 
   <middle>
     <section anchor="intro" title="Introduction">
-      <t><xref target="I-D.ietf-add-dnr"></xref> specifies how a local
-      encrypted DNS resolver can be discovered by connected hosts by means of
-      DHCP <xref target="RFC2132"></xref>, DHCPv6 <xref
-      target="RFC8415"></xref>, and IPv6 Router Advertisement (RA) <xref
-      target="RFC4861"></xref> options. These options are designed to convey
-      the following information: the DNS Authentication Domain Name (ADN), a
-      list of IP addresses, and a set of service parameters. The ADN is used
-      as a reference identifier for authentication purposes, while the list of
-      IP addresses designate where to locate the resolver without relying upon
-      an external resolver. The service parameters provide additional
-      information to characterize a DNS resolver (e.g., supported encrypted
-      DNS, customized DNS port number, or URI Template for DNS-over-HTTPS
-      (DoH)). Such an information is used by a DNS client for DNS resolver
-      selection and session establishment. </t>
+      <t>Discovery of Network-designated Resolvers (DNR) <xref
+      target="I-D.ietf-add-dnr"></xref> specifies how a local encrypted DNS
+      resolver can be discovered by connected hosts by means of DHCP <xref
+      target="RFC2132"></xref>, DHCPv6 <xref target="RFC8415"></xref>, and
+      IPv6 Router Advertisement (RA) <xref target="RFC4861"></xref> options.
+      These options are designed to convey the following information: the DNS
+      Authentication Domain Name (ADN), a list of IP addresses, and a set of
+      service parameters. The ADN is used as a reference identifier for
+      authentication purposes, while the list of IP addresses designate where
+      to locate the resolver without relying upon an external resolver. The
+      service parameters provide additional information to characterize a DNS
+      resolver (e.g., supported encrypted DNS, customized DNS port number, or
+      URI Template for DNS-over-HTTPS (DoH)). Such an information is used by a
+      DNS client for DNS resolver selection and session establishment. </t>
 
       <t>This document discusses some deployment considerations for the
       discovery of encrypted DNS resolvers such as DoH <xref
@@ -161,7 +162,9 @@
       options can be used.</t>
 
       <t>Considerations related to hosting a DNS forwarder in a local network
-      are described in <xref target="forwarder"></xref>.</t>
+      are described in <xref target="forwarder"></xref>. In contexts where
+      CPEs can't be upgraded to support DNR, Discovery of Designated Resolvers
+      (DDR) <xref target="I-D.ietf-add-ddr"></xref> can be used. See .</t>
 
       <t>Techniques, such as the one defined in <xref
       target="I-D.boucadair-opsawg-add-encrypted-dns"></xref>, can be enabled
@@ -682,6 +685,8 @@ Legend:
   <back>
     <references title="Normative References">
       <?rfc include='reference.I-D.ietf-add-dnr'?>
+
+      <?rfc include='reference.I-D.ietf-add-ddr'?>
     </references>
 
     <references title="Informative References">
@@ -700,8 +705,6 @@ Legend:
       <?rfc include='reference.RFC.9250'?>
 
       <?rfc include='reference.I-D.ietf-v6ops-rfc7084-bis' ?>
-
-      <?rfc include='reference.I-D.ietf-add-ddr'?>
 
       <?rfc include='reference.I-D.boucadair-opsawg-add-encrypted-dns'?>
 

@@ -23,8 +23,9 @@ Abstract
    The document discusses some deployment considerations of the various
    options to discover encrypted DNS resolvers (e.g., DNS-over-HTTPS,
    DNS-over-TLS, DNS-over-QUIC).  Particularly, this document is meant
-   to exemplify how Discovery of Network-designated Resolvers (DNR) can
-   be used in typical deployment contexts.
+   to exemplify how Discovery of Network-designated Resolvers (DNR) and
+   Discovery of Designated Resolvers (DDR) can be used in typical
+   deployment contexts.
 
 Status of This Memo
 
@@ -47,7 +48,6 @@ Copyright Notice
 
    Copyright (c) 2022 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
-
 
 
 
@@ -94,18 +94,18 @@ Table of Contents
 
 1.  Introduction
 
-   [I-D.ietf-add-dnr] specifies how a local encrypted DNS resolver can
-   be discovered by connected hosts by means of DHCP [RFC2132], DHCPv6
-   [RFC8415], and IPv6 Router Advertisement (RA) [RFC4861] options.
-   These options are designed to convey the following information: the
-   DNS Authentication Domain Name (ADN), a list of IP addresses, and a
-   set of service parameters.  The ADN is used as a reference identifier
-   for authentication purposes, while the list of IP addresses designate
+   Discovery of Network-designated Resolvers (DNR) [I-D.ietf-add-dnr]
+   specifies how a local encrypted DNS resolver can be discovered by
+   connected hosts by means of DHCP [RFC2132], DHCPv6 [RFC8415], and
+   IPv6 Router Advertisement (RA) [RFC4861] options.  These options are
+   designed to convey the following information: the DNS Authentication
+   Domain Name (ADN), a list of IP addresses, and a set of service
+   parameters.  The ADN is used as a reference identifier for
+   authentication purposes, while the list of IP addresses designate
    where to locate the resolver without relying upon an external
    resolver.  The service parameters provide additional information to
    characterize a DNS resolver (e.g., supported encrypted DNS,
    customized DNS port number, or URI Template for DNS-over-HTTPS
-   (DoH)).  Such an information is used by a DNS client for DNS resolver
 
 
 
@@ -114,6 +114,7 @@ Boucadair, et al.         Expires 10 March 2023                 [Page 2]
 Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
 
 
+   (DoH)).  Such an information is used by a DNS client for DNS resolver
    selection and session establishment.
 
    This document discusses some deployment considerations for the
@@ -127,7 +128,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    inventory of deployments where Encrypted DNS options can be used.
 
    Considerations related to hosting a DNS forwarder in a local network
-   are described in Section 4.
+   are described in Section 4.  In contexts where CPEs can't be upgraded
+   to support DNR, Discovery of Designated Resolvers (DDR)
+   [I-D.ietf-add-ddr] can be used.  See .
 
    Techniques, such as the one defined in
    [I-D.boucadair-opsawg-add-encrypted-dns], can be enabled together
@@ -158,9 +161,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    Unmanaged CPE:  refers to a CPE that is not managed by an ISP.
 
    DHCP:  refers to both DHCPv4 and DHCPv6.
-
-
-
 
 
 
@@ -704,6 +704,13 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
 
 9.1.  Normative References
 
+   [I-D.ietf-add-ddr]
+              Pauly, T., Kinnear, E., Wood, C. A., McManus, P., and T.
+              Jensen, "Discovery of Designated Resolvers", Work in
+              Progress, Internet-Draft, draft-ietf-add-ddr-10, 5 August
+              2022, <https://www.ietf.org/archive/id/draft-ietf-add-ddr-
+              10.txt>.
+
    [I-D.ietf-add-dnr]
               Boucadair, M., Reddy, T., Wing, D., Cook, N., and T.
               Jensen, "DHCP and Router Advertisement Options for the
@@ -714,13 +721,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
 
 9.2.  Informative References
 
-   [I-D.boucadair-opsawg-add-encrypted-dns]
-              Boucadair, M. and T. Reddy, "RADIUS Extensions for
-              Encrypted DNS", Work in Progress, Internet-Draft, draft-
-              boucadair-opsawg-add-encrypted-dns-06, 5 September 2022,
-              <https://www.ietf.org/archive/id/draft-boucadair-opsawg-
-              add-encrypted-dns-06.txt>.
-
 
 
 
@@ -730,12 +730,12 @@ Boucadair, et al.         Expires 10 March 2023                [Page 13]
 Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
 
 
-   [I-D.ietf-add-ddr]
-              Pauly, T., Kinnear, E., Wood, C. A., McManus, P., and T.
-              Jensen, "Discovery of Designated Resolvers", Work in
-              Progress, Internet-Draft, draft-ietf-add-ddr-10, 5 August
-              2022, <https://www.ietf.org/archive/id/draft-ietf-add-ddr-
-              10.txt>.
+   [I-D.boucadair-opsawg-add-encrypted-dns]
+              Boucadair, M. and T. Reddy, "RADIUS Extensions for
+              Encrypted DNS", Work in Progress, Internet-Draft, draft-
+              boucadair-opsawg-add-encrypted-dns-06, 5 September 2022,
+              <https://www.ietf.org/archive/id/draft-boucadair-opsawg-
+              add-encrypted-dns-06.txt>.
 
    [I-D.ietf-v6ops-rfc7084-bis]
               Martinez, J. P., "Basic Requirements for IPv6 Customer
