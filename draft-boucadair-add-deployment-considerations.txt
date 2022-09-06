@@ -2,17 +2,17 @@
 
 
 
-ADD                                                    M. Boucadair, Ed.
+Network Working Group                                  M. Boucadair, Ed.
 Internet-Draft                                                    Orange
 Intended status: Informational                             T. Reddy, Ed.
-Expires: 9 March 2023                                             McAfee
+Expires: 10 March 2023                                             Nokia
                                                                  D. Wing
                                                                   Citrix
                                                                  N. Cook
                                                             Open-Xchange
                                                                T. Jensen
                                                                Microsoft
-                                                        5 September 2022
+                                                        6 September 2022
 
 
     Discovery of Encrypted DNS Resolvers: Deployment Considerations
@@ -22,7 +22,9 @@ Abstract
 
    The document discusses some deployment considerations of the various
    options to discover encrypted DNS resolvers (e.g., DNS-over-HTTPS,
-   DNS-over-TLS, DNS-over-QUIC).
+   DNS-over-TLS, DNS-over-QUIC).  Particularly, this document is meant
+   to exemplify how Discovery of Network-designated Resolvers (DNR) can
+   be used in typical deployment contexts.
 
 Status of This Memo
 
@@ -39,25 +41,27 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 March 2023.
+   This Internet-Draft will expire on 10 March 2023.
 
 Copyright Notice
 
    Copyright (c) 2022 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
-   This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents (https://trustee.ietf.org/
-   license-info) in effect on the date of publication of this document.
-   Please review these documents carefully, as they describe your rights
 
 
 
-Boucadair, et al.         Expires 9 March 2023                  [Page 1]
+
+
+Boucadair, et al.         Expires 10 March 2023                 [Page 1]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
 
 
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
    and restrictions with respect to this document.  Code Components
    extracted from this document must include Revised BSD License text as
    described in Section 4.e of the Trust Legal Provisions and are
@@ -67,26 +71,26 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Sample Target Deployment Scenarios  . . . . . . . . . . . . .   3
-     3.1.  Managed CPEs  . . . . . . . . . . . . . . . . . . . . . .   5
-       3.1.1.  Direct DNS  . . . . . . . . . . . . . . . . . . . . .   5
+   3.  Sample Target Deployment Scenarios  . . . . . . . . . . . . .   4
+     3.1.  Managed CPEs  . . . . . . . . . . . . . . . . . . . . . .   6
+       3.1.1.  Direct DNS  . . . . . . . . . . . . . . . . . . . . .   6
        3.1.2.  Proxied DNS . . . . . . . . . . . . . . . . . . . . .   7
      3.2.  Unmanaged CPEs  . . . . . . . . . . . . . . . . . . . . .   9
        3.2.1.  ISP-facing Unmanaged CPEs . . . . . . . . . . . . . .   9
        3.2.2.  Internal Unmanaged CPEs . . . . . . . . . . . . . . .   9
    4.  Hosting Encrypted DNS Forwarder in Local Networks . . . . . .  10
      4.1.  Managed CPEs  . . . . . . . . . . . . . . . . . . . . . .  10
-       4.1.1.  DNS Forwarders  . . . . . . . . . . . . . . . . . . .  10
-       4.1.2.  ACME  . . . . . . . . . . . . . . . . . . . . . . . .  10
-     4.2.  Unmanaged CPEs  . . . . . . . . . . . . . . . . . . . . .  10
-   5.  Legacy CPEs . . . . . . . . . . . . . . . . . . . . . . . . .  11
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  12
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  12
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
+       4.1.1.  DNS Forwarders  . . . . . . . . . . . . . . . . . . .  11
+       4.1.2.  ACME  . . . . . . . . . . . . . . . . . . . . . . . .  11
+     4.2.  Unmanaged CPEs  . . . . . . . . . . . . . . . . . . . . .  11
+   5.  Legacy CPEs . . . . . . . . . . . . . . . . . . . . . . . . .  13
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  13
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  13
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  13
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  13
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
 
 1.  Introduction
 
@@ -95,32 +99,49 @@ Table of Contents
    [RFC8415], and IPv6 Router Advertisement (RA) [RFC4861] options.
    These options are designed to convey the following information: the
    DNS Authentication Domain Name (ADN), a list of IP addresses, and a
-   set of service parameters.
+   set of service parameters.  The ADN is used as a reference identifier
+   for authentication purposes, while the list of IP addresses designate
+   where to locate the resolver without relying upon an external
+   resolver.  The service parameters provide additional information to
+   characterize a DNS resolver (e.g., supported encrypted DNS,
+   customized DNS port number, or URI Template for DNS-over-HTTPS
+   (DoH)).  Such an information is used by a DNS client for DNS resolver
+
+
+
+Boucadair, et al.         Expires 10 March 2023                 [Page 2]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
+
+
+   selection and session establishment.
 
    This document discusses some deployment considerations for the
-   discovery of encrypted DNS resolvers such as DNS-over-HTTPS (DoH)
-   [RFC8484], DNS-over-TLS (DoT) [RFC7858], or DNS-over-QUIC (DoQ)
-   [RFC9250] in local networks.
+   discovery of encrypted DNS resolvers such as DoH [RFC8484], DNS-over-
+   TLS (DoT) [RFC7858], or DNS-over-QUIC (DoQ) [RFC9250] in local
+   networks.
 
    Sample target deployment scenarios are discussed in Section 3; both
    managed and unmanaged Customer Premises Equipment (CPEs) are covered.
    It is out of the scope of this document to provide an exhaustive
    inventory of deployments where Encrypted DNS options can be used.
 
-
-
-Boucadair, et al.         Expires 9 March 2023                  [Page 2]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
-
-
    Considerations related to hosting a DNS forwarder in a local network
    are described in Section 4.
 
+   Techniques, such as the one defined in
+   [I-D.boucadair-opsawg-add-encrypted-dns], can be enabled together
+   with [I-D.ietf-add-dnr] to feed the Encrypted DNS options.  However,
+   the document does not make any assumption about the internal behavior
+   at the network side to feed the Encrypted DNS options that are
+   supplied to requesting hosts; only the external observed behavior is
+   detailed in the following sections.
+
 2.  Terminology
 
-   This document makes use of the terms defined in [RFC8499].  The
-   following additional terms are used:
+   This document makes use of the terms defined in [RFC8499].
+
+   The following additional terms are used:
 
    Do53:  refers to unencrypted DNS.
 
@@ -137,6 +158,17 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    Unmanaged CPE:  refers to a CPE that is not managed by an ISP.
 
    DHCP:  refers to both DHCPv4 and DHCPv6.
+
+
+
+
+
+
+
+Boucadair, et al.         Expires 10 March 2023                 [Page 3]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
+
 
 3.  Sample Target Deployment Scenarios
 
@@ -155,102 +187,100 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    The communication between a customer's device (possibly via Customer
    Premises Equipment (CPE)) and an ISP-supplied DNS resolver takes
    place by using cleartext DNS messages (Do53).  Some examples are
-   depicted in cases (a) and (c) in Figure 1.  In the case of cellular
+   depicted in cases (a) and (c) of Figure 1.  In the case of cellular
    networks, the cellular network will provide connectivity directly to
    a host (e.g., smartphone, tablet) or via a CPE.  Do53 mechanisms used
    within the Local Area Network (LAN) are similar in both fixed and
    cellular CPE-based broadband service offerings.
 
-
-
-
-
-Boucadair, et al.         Expires 9 March 2023                  [Page 3]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
-
-
    Some ISPs rely upon external resolvers (e.g., outsourced service or
    public resolvers); these ISPs provide their customers with the IP
-   addresses of these external resolvers.  An example is depicted in
-   cases (b) and (d) in Figure 1.
+   addresses of these external DNS resolvers.  An example is depicted in
+   cases (b) and (d) of Figure 1.
 
-   The addresses of DNS resolver can also be configured on CPEs using
-   dedicated management tools.  As such, users can modify the default
-   DNS configuration of their CPEs (e.g., supplied by their ISP) to
-   configure their favorite DNS servers.  This document permits such
+   The IP addresses of the DNS resolver can also be configured on CPEs
+   using dedicated management tools.  As such, users can modify the
+   default DNS configuration of their CPEs (e.g., supplied by their ISP)
+   to configure their favorite DNS servers.  This document permits such
    deployments.
 
-      (a) Fixed Networks with a local DNS resolver
+     (a) Fixed networks with a local DNS resolver
 
-                                       ,--,--,--.
-          +-+      LAN     +---+    ,-'           `-.
-          |H+--------------+CPE+---+      ISP        )
-          +-+              +---+    `-.          ,-'
-           |                           `--'--'--'
-           |                               |
-           |<=============Do53============>|
-           |                               |
+                                      ,--,--,--.
+         +-+      LAN     +---+    ,-'           `-.
+         |H+--------------+CPE+---+      ISP        )
+         +-+              +---+    `-.          ,-'
+          |                           `--'--'--'
+          |                               |
+          |<=============Do53============>|
+          |                               |
 
-      (b) Fixed Networks with a 3rd party DNS resolver
+     (b) Fixed networks with a 3rd party DNS resolver
 
-                                       ,--,--,--.
-          +-+      LAN     +---+    ,-'           `-.      3rd Party
-          |H+--------------+CPE+---+      ISP        )--- DNS Server
-          +-+              +---+    `-.          ,-'         |
-           |                           `--'--'--'            |
-           |                                                 |
-           |<========================Do53===================>|
-           |                                                 |
-
-      (c) Cellular Networks with a local DNS resolver
-
-           |                               |
-           |<=============Do53============>|
-           |                               |
-           |                           ,--,--,-.
-          +-+      LAN     +---+    ,-'         .
-          |H+--------------+CPE+---+             \
-          +-+              +---+  ,'     ISP     `-.
-                                  (                )
-                             +-----+-.          ,-'
-          +-+                |        `--'--'--'
-          |H+----------------+             |
-          +-+                              |
-           |                               |
+                                      ,--,--,--.
 
 
 
-Boucadair, et al.         Expires 9 March 2023                  [Page 4]
+Boucadair, et al.         Expires 10 March 2023                 [Page 4]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
 
 
-           |<=============Do53============>|
-           |                               |
+         +-+      LAN     +---+    ,-'           `-.      3rd Party
+         |H+--------------+CPE+---+      ISP        )--- DNS Resolver
+         +-+              +---+    `-.          ,-'         |
+          |                           `--'--'--'            |
+          |                                                 |
+          |<========================Do53===================>|
+          |                                                 |
 
-      (d) Cellular Networks with a 3rd party DNS resolver
+     (c) Cellular networks with a local DNS resolver
 
-           |                                               |
-           |<==================Do53=======================>|
-           |                                               |
-           |                           ,--,--,-.           |
-          +-+      LAN     +---+    ,-'         .          |
-          |H+--------------+CPE+---+             \         |
-          +-+              +---+  ,'     ISP     `-.    3rd Party
-                                  (                )--- DNS Server
-                             +-----+-.          ,-'        |
-          +-+                |        `--'--'--'           |
-          |H+----------------+                             |
-          +-+                                              |
-           |                                               |
-           |<==================Do53=======================>|
-           |                                               |
+          |                               |
+          |<=============Do53============>|
+          |                               |
+          |                           ,--,--,-.
+         +-+      LAN     +---+    ,-'         .
+         |H+--------------+CPE+---+             \
+         +-+              +---+  ,'     ISP     `-.
+                                 (                )
+                            +-----+-.          ,-'
+         +-+                |        `--'--'--'
+         |H+----------------+             |
+         +-+                              |
+          |                               |
+          |<=============Do53============>|
+          |                               |
 
-      Legend:
-       * H: refers to a host.
+     (d) Cellular networks with a 3rd party DNS resolver
+
+          |                                               |
+          |<==================Do53=======================>|
+          |                                               |
+          |                           ,--,--,-.           |
+         +-+      LAN     +---+    ,-'         .          |
+         |H+--------------+CPE+---+             \         |
+         +-+              +---+  ,'     ISP     `-.    3rd Party
+                                 (                )--- DNS Resolver
+                            +-----+-.          ,-'        |
+         +-+                |        `--'--'--'           |
+         |H+----------------+                             |
+         +-+                                              |
+          |                                               |
+          |<==================Do53=======================>|
+          |                                               |
+
+     Legend:
+      * H: refers to a host.
 
                     Figure 1: Sample Legacy Deployments
+
+
+
+Boucadair, et al.         Expires 10 March 2023                 [Page 5]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
+
 
 3.1.  Managed CPEs
 
@@ -262,25 +292,15 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    configuration information (e.g., CPE WAN Management Protocol
    [TR-069]).  For example, these tools may be used to provision the DNS
    server's ADN and additional service parameters to managed CPEs if an
-   encrypted DNS is supported by a local network similar to what is
-   depicted in Figure 2.
+   encrypted DNS is supported by a network similar to what is depicted
+   in Figure 2.
 
-   For example, DoH-capable (or DoT) clients establish the DoH (or DoT)
-   session with the discovered DoH (or DoT) server.
+   For example, DoH-capable (or DoT) DNS clients establish the DoH (or
+   DoT) session with the discovered DoH (or DoT) server.
 
-   The DNS client discovers whether the DNS server in the local network
+   The DNS client discovers whether the network-designated DNS resolver
    supports a given encrypted DNS scheme (e.g., DoT or DoH) by using the
    service paramters (ALPN).
-
-
-
-
-
-
-Boucadair, et al.         Expires 9 March 2023                  [Page 5]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
-
 
              (a) Fixed Networks
 
@@ -311,20 +331,30 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
                   |<========Encrypted DNS========>|
                   |                               |
 
+
+
+Boucadair, et al.         Expires 10 March 2023                 [Page 6]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
+
+
                      Figure 2: Encrypted DNS in the WAN
 
    Figure 2 shows the scenario where the CPE relays the list of
-   encrypted DNS resolvers it learns for the network by using DNR
-   [I-D.ietf-add-dnr].  In such contexts, direct encrypted DNS sessions
-   will be established between a host serviced by a CPE and an ISP-
-   supplied encrypted DNS resolver (see the example depicted in Figure 3
-   for an encrypted DNS capable host).
+   encrypted DNS resolvers it learns from the network by using, e.g.,
+   DNR [I-D.ietf-add-dnr].  In such contexts, direct encrypted DNS
+   sessions will be established between a host serviced by a CPE and an
+   ISP-supplied encrypted DNS resolver (see the example depicted in
+   Figure 3 for an encrypted DNS capable host).
 
                          ,--,--,--.             ,--,--,--.
                       ,-'          `-.       ,-'   ISP    `-.
-              Host---(      LAN      CPE----(    DNS Server  )
+              Host---(      LAN      CPE----(    DNS Resolver)
                 |     `-.          ,-'       `-.          ,-'
-                |        `--'--'--'             `--'--'--'
+                |        `--'--'--'   |       | `--'--'--'
+                |                     |<=DNR=>|     |
+                |<========DNR========>|       |     |
+                |                     |             |
                 |                                   |
                 |<=========Encrypted DNS===========>|
                 |                                   |
@@ -332,21 +362,95 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
                   Figure 3: Direct Encrypted DNS Sessions
 
 
+3.1.2.  Proxied DNS
 
-Boucadair, et al.         Expires 9 March 2023                  [Page 6]
+   Figure 4 shows various deployments where the CPE embeds a caching DNS
+   forwarder.  Cases (b) and (d) involves a host (called legacy host)
+   that do not support DNR [I-D.ietf-add-dnr].
+
+(a)
+
+                      ,--,--,--.             ,--,--,--.
+                   ,-'          `-.       ,-'   ISP    `-.
+           Host---(      LAN      CPE----(    DNS Resolver)
+             |     `-.          ,-'|      `-.          ,-'
+             |        `--'--'--'   |       | `--'--'--'
+             |                     |<=DNR=>|     |
+             |<========DNR========>|       |     |
+             |                     |             |
+             |<=====Encrypted=====>|<=Encrypted=>|
+             |         DNS         |     DNS     |
+
+(b)
+                      ,--,--,--.             ,--,--,--.
+          Legacy   ,-'          `-.       ,-'   ISP    `-.
+           Host---(      LAN      CPE----(    DNS Resolver)
+             |     `-.          ,-'|      `-.          ,-'
+
+
+
+Boucadair, et al.         Expires 10 March 2023                 [Page 7]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
 
 
-3.1.2.  Proxied DNS
+             |        `--'--'--'   |       | `--'--'--'
+             |                     |<=DNR=>|     |
+             |<====DHCP/RA(Do53)==>|       |     |
+             |                     |             |
+             |<=======Do53========>|<=Encrypted=>|
+             |                     |     DNS     |
 
-   Figure 4 shows a deployment where the CPE embeds a caching DNS
-   forwarder.  The CPE advertises itself as the default DNS server to
-   the hosts it serves.  The CPE relies upon DHCP or RA to advertise
-   itself to internal hosts as the default encrypted DNS or Do53
-   resolver.  When receiving a DNS request it cannot handle locally, the
-   CPE forwards the request to an upstream encrypted DNS or Do53
-   resolver.  Such a deployment is required for IPv4 service continuity
+(c)
+
+                  ,--,--,--.             ,--,--,--.
+               ,-'          `-.       ,-'   ISP    `-.      3rd Party
+       Host---(      LAN      CPE----(    DNS Resolver )--- DNS Resolver
+         |     `-.          ,-'|      `-.          ,-'        |
+         |        `--'--'--'   |       | `--'--'--'           |
+         |                     |<=DNR=>|                      |
+         |<========DNR========>|       |                      |
+         |                     |                              |
+         |<=====Encrypted=====>|<=========Encrypted DNS======>|
+         |         DNS         |                              |
+
+(d)
+
+                  ,--,--,--.             ,--,--,--.
+      Legacy   ,-'          `-.       ,-'   ISP    `-.      3rd Party
+       Host---(      LAN      CPE----(    DNS Server  )--- DNS Resolver
+         |     `-.          ,-'|      `-.          ,-'        |
+         |        `--'--'--'   |       | `--'--'--'           |
+         |                     |<=DNR=>|                      |
+         |<====DHCP/RA(Do53)==>|       |                      |
+         |                     |                              |
+         |<========Do53=======>|<=========Encrypted DNS======>|
+         |                     |                              |
+
+               Figure 4: Proxied Encrypted DNS Sessions
+
+   For all the cases shown in Figure 4, the CPE advertises itself as the
+   default DNS server to the hosts it serves.  The CPE relies upon DHCP
+   or RA to advertise itself to internal hosts as the default encrypted
+   DNS (cases (a) and (c)) or Do53 resolver (cases (b) and (d)).  When
+   receiving a DNS request it cannot handle locally, the CPE forwards
+   the request to an upstream encrypted DNS.
+
+
+
+
+
+
+
+
+
+
+Boucadair, et al.         Expires 10 March 2023                 [Page 8]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
+
+
+   Such a forwarder deployment is required for IPv4 service continuity
    purposes (e.g., Section 5.4.1 of [I-D.ietf-v6ops-rfc7084-bis]) or for
    supporting advanced services within a local network (e.g., malware
    filtering, parental control, Manufacturer Usage Description (MUD)
@@ -361,94 +465,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    An ISP that offers encrypted DNS to its customers may enable
    encrypted DNS in one or both legs as shown in Figure 4.  Additional
    considerations related to this deployment are discussed in Section 4.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Boucadair, et al.         Expires 9 March 2023                  [Page 7]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
-
-
-   (a)
-
-                         ,--,--,--.             ,--,--,--.
-                      ,-'          `-.       ,-'   ISP    `-.
-              Host---(      LAN      CPE----(    DNS Server  )
-                |     `-.          ,-'|      `-.          ,-'
-                |        `--'--'--'   |         `--'--'--'
-                |                     |             |
-                |<=====Encrypted=====>|<=Encrypted=>|
-                |         DNS         |     DNS     |
-
-   (b)
-                         ,--,--,--.             ,--,--,--.
-             Legacy   ,-'          `-.       ,-'   ISP    `-.
-              Host---(      LAN      CPE----(    DNS Server  )
-                |     `-.          ,-'|      `-.          ,-'
-                |        `--'--'--'   |         `--'--'--'
-                |                     |             |
-                |<=======Do53========>|<=Encrypted=>|
-                |                     |     DNS     |
-
-   (c)
-
-                     ,--,--,--.             ,--,--,--.
-                  ,-'          `-.       ,-'   ISP    `-.      3rd Party
-          Host---(      LAN      CPE----(    DNS Server  )--- DNS Server
-            |     `-.          ,-'|      `-.          ,-'        |
-            |        `--'--'--'   |         `--'--'--'           |
-            |                     |                              |
-            |<=====Encrypted=====>|<=========Encrypted DNS======>|
-            |         DNS         |                              |
-
-   (d)
-
-                     ,--,--,--.             ,--,--,--.
-                  ,-'          `-.       ,-'   ISP    `-.      3rd Party
-          Host---(      LAN      CPE----(    DNS Server  )--- DNS Server
-            |     `-.          ,-'|      `-.          ,-'        |
-            |        `--'--'--'   |         `--'--'--'           |
-            |                     |                              |
-            |<========Do53=======>|<=========Encrypted DNS======>|
-            |                     |                              |
-
-                  Figure 4: Proxied Encrypted DNS Sessions
-
-
-
-
-
-
-
-Boucadair, et al.         Expires 9 March 2023                  [Page 8]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
-
 
 3.2.  Unmanaged CPEs
 
@@ -473,14 +489,32 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    to override the DNS configuration it receives from the ISP-supplied
    CPE, an Internal CPE relays the DNS information it receives via DHCP/
    RA from the ISP-supplied CPE to connected hosts.  Encrypted DNS
-   sessions can be established by a host with the DNS servers of the ISP
-   (see Figure 5).
+   sessions can be established by a host with the DNS resolvers that are
+   supplied by the ISP (see Figure 5).
+
+
+
+
+
+
+
+
+
+
+Boucadair, et al.         Expires 10 March 2023                 [Page 9]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
+
 
                     ,--,--,--.                    ,--,--,--.
                  ,-'          Internal         ,-'    ISP   `-.
-          Host--(    Network#A   CPE----CPE---(    DNS Server   )
-           |     `-.          ,-'              `-.          ,-'
-           |        `--'--'--'                    `--'--'--'
+          Host--(    Network#A   CPE----CPE---(    DNS Resolver )
+           |     `-.          ,-'        |     `-.          ,-'
+           |        `--'--'--'   |       |       | `--'--'--'
+           |                     |       |<=DNR=>|    |
+           |                     |<=DNR=>|            |
+           |<========DNR========>|       |            |
+           |                     |                    |
            |                                          |
            |<==============Encrypted DNS=============>|
            |                                          |
@@ -489,31 +523,21 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
                                (Internal CPE)
 
    Similar to managed CPEs, a user may modify the default DNS
-   configuration of an unmanaged CPE to use his/her favorite DNS servers
-   instead.  Encrypted DNS sessions can be established directly between
-   a host and a 3rd Party DNS server (see Figure 6).
+   configuration of an unmanaged CPE to use his/her favorite encryptd
+   DNS resolvers instead.  Encrypted DNS sessions can be established
+   directly between a host and a 3rd Party DNS resolver (see Figure 6).
 
-
-
-
-
-
-
-
-
-Boucadair, et al.         Expires 9 March 2023                  [Page 9]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
-
-
-                 ,--,--,--.                  ,--,
-               ,'         Internal        ,-'    '-     3rd Party
-        Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Server
-         |     `.         ,-'             `-.    -'         |
-         |       `-'--'--'                   `--'           |
-         |                                                  |
-         |<=================Encrypted DNS==================>|
-         |                                                  |
+                ,--,--,--.                  ,--,
+              ,'         Internal        ,-'    '-     3rd Party
+       Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Resolver
+        |     `.         ,-'             `-.    -'         |
+        |       `-'--'--'  |                `--'           |
+        |                  |                               |
+        |<========DNR=====>|                               |
+        |                  |                               |
+        |                                                  |
+        |<=================Encrypted DNS==================>|
+        |                                                  |
 
        Figure 6: Direct Encrypted DNS Sessions with a Third Party DNS
                                   Resolver
@@ -531,6 +555,13 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    The section discusses mechanisms that can be used to host an
    encrypted DNS forwarder in a managed CPE (Section 3.1).
 
+
+
+Boucadair, et al.         Expires 10 March 2023                [Page 10]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
+
+
 4.1.1.  DNS Forwarders
 
    The managed CPE should support a configuration parameter to instruct
@@ -543,24 +574,17 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
 
    The ISP can assign a unique FQDN (e.g., "cpe1.example.com") and a
    domain-validated public certificate to the encrypted DNS forwarder
-   hosted on the CPE.  Automatic Certificate Management Environment
-   (ACME) [RFC8555] can be used by the ISP to automate certificate
-   management functions such as domain validation procedure, certificate
-   issuance and certificate revocation.
+   hosted on the CPE.
+
+   Automatic Certificate Management Environment (ACME) [RFC8555] can be
+   used by the ISP to automate certificate management functions such as
+   domain validation procedure, certificate issuance, and certificate
+   revocation.
 
 4.2.  Unmanaged CPEs
 
    The approach specified in Section 4.1 does not apply for hosting a
    DNS forwarder in an unmanaged CPE.
-
-
-
-
-
-Boucadair, et al.         Expires 9 March 2023                 [Page 10]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
-
 
    The unmanaged CPE administrator can host an encrypted DNS forwarder
    on the unmanaged CPE.  This assumes the following:
@@ -577,7 +601,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
       ISP's or a 3rd party encrypted DNS resolver.
 
    *  The unmanaged CPE will advertise the encrypted DNS forwarder ADN
-      using DHCP/RA to internal hosts.
+      using DHCP/RA to internal hosts as per [I-D.ietf-add-dnr].
 
    Figure 7 illustrates an example of an unmanaged CPE hosting a
    forwarder which connects to a 3rd party encrypted DNS resolver.  In
@@ -585,13 +609,46 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    therefore from the ISP) is ignored by the Internal CPE hosting the
    forwarder.
 
+
+
+
+
+Boucadair, et al.         Expires 10 March 2023                [Page 11]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
+
+
+             ,--,--,--.                         ,--,
+           ,'         Internal   Managed     ,-'    '-     3rd Party
+    Host--(  Network#A  CPE--------CPE------(   ISP   )--- DNS Resolver
+     |     `.         ,-'|          |        `-.    -'       |
+     |       `-'--'--'   |          |<==DNR===>|`--'         |
+     |                   X<==DNR===>|          |             |
+     |<=======DNR=======>|          |                        |
+     |    {ADN, @i}      |                                   |
+     |                   |                                   |
+     |<==Encrypted DNS==>|<==========Encrypted DNS==========>|
+     |                   |                                   |
+
+    Legend:
+      * @i: IP address of the DNS forwarder hosted in the Internal
+            CPE.
+
+          Figure 7: Example of an Internal CPE Hosting a Forwarder
+
+   Note that an unmanaged CPE can be used to host an encrypted DNS
+   forwarder even if the managed CPE does not support DNR.  In the
+   example depicted in Figure 8, the ISP uses DHCP to provision Do53
+   resolvers to managed CPEs, while DNR is enabled between the internal
+   CPE and the hosts it services.
+
               ,--,--,--.                         ,--,
             ,'         Internal   Managed     ,-'    '-     3rd Party
      Host--(  Network#A  CPE--------CPE------(   ISP   )--- DNS Server
       |     `.         ,-'|          |        `-.    -'       |
       |       `-'--'--'   |          |<==DHCP==>|`--'         |
-      |                   |<==DHCP==>|          |             |
-      |<======DHCP=======>|          |                        |
+      |                   |<==DHCP==>|   Do53   |             |
+      |<=======DNR=======>|   Do53   |                        |
       |    {ADN, @i}      |                                   |
       |<==Encrypted DNS==>|<==========Encrypted DNS==========>|
       |                   |                                   |
@@ -600,7 +657,22 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
        * @i: IP address of the DNS forwarder hosted in the Internal
              CPE.
 
-          Figure 7: Example of an Internal CPE Hosting a Forwarder
+        Figure 8: Example of an Internal CPE Hosting a Forwarder (2)
+
+
+
+
+
+
+
+
+
+
+
+Boucadair, et al.         Expires 10 March 2023                [Page 12]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
+
 
 5.  Legacy CPEs
 
@@ -610,14 +682,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    particular.  If the ADN is not discovered using DHCP/RA, such hosts
    will have to fallback to use discovery using the resolver IP address
    as defined in Section 4 of [I-D.ietf-add-ddr] to discover the
-
-
-
-Boucadair, et al.         Expires 9 March 2023                 [Page 11]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
-
-
    designated resolvers.
 
    The guidance in Sections 4.1 and 4.2 of [I-D.ietf-add-ddr] related to
@@ -650,6 +714,22 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
 
 9.2.  Informative References
 
+   [I-D.boucadair-opsawg-add-encrypted-dns]
+              Boucadair, M. and T. Reddy, "RADIUS Extensions for
+              Encrypted DNS", Work in Progress, Internet-Draft, draft-
+              boucadair-opsawg-add-encrypted-dns-06, 5 September 2022,
+              <https://www.ietf.org/archive/id/draft-boucadair-opsawg-
+              add-encrypted-dns-06.txt>.
+
+
+
+
+
+Boucadair, et al.         Expires 10 March 2023                [Page 13]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
+
+
    [I-D.ietf-add-ddr]
               Pauly, T., Kinnear, E., Wood, C. A., McManus, P., and T.
               Jensen, "Discovery of Designated Resolvers", Work in
@@ -663,16 +743,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
               ietf-v6ops-rfc7084-bis-04, 12 June 2017,
               <https://www.ietf.org/archive/id/draft-ietf-v6ops-rfc7084-
               bis-04.txt>.
-
-
-
-
-
-
-Boucadair, et al.         Expires 9 March 2023                 [Page 12]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
-
 
    [RFC2132]  Alexander, S. and R. Droms, "DHCP Options and BOOTP Vendor
               Extensions", RFC 2132, DOI 10.17487/RFC2132, March 1997,
@@ -708,6 +778,14 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
               (DoH)", RFC 8484, DOI 10.17487/RFC8484, October 2018,
               <https://www.rfc-editor.org/info/rfc8484>.
 
+
+
+
+Boucadair, et al.         Expires 10 March 2023                [Page 14]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
+
+
    [RFC8499]  Hoffman, P., Sullivan, A., and K. Fujiwara, "DNS
               Terminology", BCP 219, RFC 8499, DOI 10.17487/RFC8499,
               January 2019, <https://www.rfc-editor.org/info/rfc8499>.
@@ -721,14 +799,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
               Kasten, "Automatic Certificate Management Environment
               (ACME)", RFC 8555, DOI 10.17487/RFC8555, March 2019,
               <https://www.rfc-editor.org/info/rfc8555>.
-
-
-
-
-Boucadair, et al.         Expires 9 March 2023                 [Page 13]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
-
 
    [RFC9250]  Huitema, C., Dickinson, S., and A. Mankin, "DNS over
               Dedicated QUIC Connections", RFC 9250,
@@ -753,18 +823,23 @@ Authors' Addresses
 
 
    Tirumaleswar Reddy (editor)
-   McAfee, Inc.
-   Embassy Golf Link Business Park
-   Bangalore 560071
-   Karnataka
+   Nokia
    India
-   Email: TirumaleswarReddy_Konda@McAfee.com
+   Email: kondtir@gmail.com
 
 
    Dan Wing
    Citrix Systems, Inc.
    United States of America
    Email: dwing-ietf@fuggles.com
+
+
+
+
+
+Boucadair, et al.         Expires 10 March 2023                [Page 15]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
 
 
    Neil Cook
@@ -781,4 +856,41 @@ Authors' Addresses
 
 
 
-Boucadair, et al.         Expires 9 March 2023                 [Page 14]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Boucadair, et al.         Expires 10 March 2023                [Page 16]
