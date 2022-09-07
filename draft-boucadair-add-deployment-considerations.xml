@@ -230,14 +230,14 @@
           Option)).</t>
         </list></t>
 
-      <t>The communication between a customer's device (possibly via Customer
-      Premises Equipment (CPE)) and an ISP-supplied DNS resolver takes place
-      by using cleartext DNS messages (Do53). Some examples are depicted in
-      cases (a) and (c) of <xref target="do53"></xref>. In the case of
-      cellular networks, the cellular network will provide connectivity
-      directly to a host (e.g., smartphone, tablet) or via a CPE. Do53
-      mechanisms used within the Local Area Network (LAN) are similar in both
-      fixed and cellular CPE-based broadband service offerings.</t>
+      <t>The communication between a customer's device (possibly via a CPE)
+      and an ISP-supplied DNS resolver takes place by using cleartext DNS
+      messages (Do53). Some examples are depicted in cases (a) and (c) of
+      <xref target="do53"></xref>. In the case of cellular networks, the
+      cellular network will provide connectivity directly to a host (e.g.,
+      smartphone, tablet) or via a CPE. Do53 mechanisms used within the Local
+      Area Network (LAN) are similar in both fixed and cellular CPE-based
+      broadband service offerings.</t>
 
       <t>Some ISPs rely upon external resolvers (e.g., outsourced service or
       public resolvers); these ISPs provide their customers with the IP
@@ -332,7 +332,7 @@ Legend:
           <t>The DNS client discovers whether the network-designated DNS
           resolver supports a given encrypted DNS scheme (e.g., DoT or DoH) by
           using the "alpn" service parameter (<xref section="3.1.5"
-          target="I-D.ietf-add-ddr"></xref>).</t>
+          target="I-D.ietf-add-dnr"></xref>).</t>
 
           <t><figure align="center" anchor="wan"
               title="Encrypted DNS in the WAN">
@@ -368,11 +368,11 @@ Legend:
 
           <t><xref target="wan"></xref> shows the scenario where the CPE
           relays the list of encrypted DNS resolvers it learns from the
-          network by using, e.g., DNR <xref target="I-D.ietf-add-dnr"></xref>.
-          Direct encrypted DNS sessions will be established between a host
-          serviced by a CPE and an ISP-supplied encrypted DNS resolver. <xref
-          target="direct"></xref> shows the example of exchanges that occur
-          for an encrypted DNS capable host.</t>
+          network by using, e.g., DNR. Direct encrypted DNS sessions will be
+          established between a host serviced by a CPE and an ISP-supplied
+          encrypted DNS resolver. <xref target="direct"></xref> shows the
+          example of exchanges that occur for an encrypted DNS capable
+          host.</t>
 
           <t><figure align="center" anchor="direct"
               title="Direct Encrypted DNS Sessions">
@@ -615,7 +615,11 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Resolver
         an unmanaged CPE hosting a forwarder which connects to a 3rd party
         encrypted DNS resolver. In this example, the DNS information received
         from the managed CPE (and therefore from the ISP) is ignored by the
-        Internal CPE hosting the forwarder.</t>
+        Internal CPE hosting the forwarder. The internal CPE may support a
+        mechanism (e.g., <xref
+        target="I-D.ietf-add-split-horizon-authority"></xref>) to resolve
+        split-horizon domains (e.g., provider's private name discussed in
+        <xref section="2" target="RFC6731"></xref>).</t>
 
         <t><figure align="center" anchor="internal_forwarded"
             title="Example of an Internal CPE Hosting a Forwarder">
@@ -637,11 +641,12 @@ Legend:
 ]]></artwork>
           </figure></t>
 
-        <t>Note that an unmanaged CPE can be used to host an encrypted DNS
-        forwarder even if the managed CPE does not support DNR. In the example
-        depicted in <xref target="internal_forwarded2"></xref>, the ISP uses
-        DHCP to provision Do53 resolvers to managed CPEs, while DNR is enabled
-        between the internal CPE and the hosts it services.</t>
+        <t>An unmanaged CPE can be used to host an encrypted DNS forwarder
+        even if the managed CPE does not support DNR. In the example depicted
+        in <xref target="internal_forwarded2"></xref>, the ISP uses DHCP to
+        provision Do53 resolvers to managed CPEs, while DNR is enabled between
+        the internal CPE and the hosts it services. The internal CPE ignores
+        the DNS configuration that it receives from the managed CPE.</t>
 
         <t><figure align="center" anchor="internal_forwarded2"
             title="Example of an Internal CPE Hosting a Forwarder (2)">
@@ -662,10 +667,7 @@ Legend:
 ]]></artwork>
           </figure></t>
 
-        <t>Note that the internal CPE may support a mechanism (e.g., <xref
-        target="I-D.ietf-add-split-horizon-authority"></xref>) to resolve
-        split-horizon domains (e.g., provider's private name discussed in
-        Section 2 of <xref target="RFC6731"></xref>).</t>
+        <t></t>
       </section>
     </section>
 
@@ -681,12 +683,14 @@ Legend:
 
       <t>The guidance in Sections 4.1 and 4.2 of <xref
       target="I-D.ietf-add-ddr"></xref> related to the designated resolver
-      verification has to be followed in such case.</t>
+      verification has to be followed in such a case.</t>
     </section>
 
     <section anchor="Security" title="Security Considerations">
       <t>DNR-related security considerations are discussed in <xref
-      section="7" target="I-D.ietf-add-ddr"></xref>.</t>
+      section="7" target="I-D.ietf-add-dnr"></xref>. Likewise, DDR-related
+      security considerations are discussed in <xref section="7"
+      target="I-D.ietf-add-ddr"></xref>.</t>
     </section>
 
     <section anchor="IANA" title="IANA Considerations">
