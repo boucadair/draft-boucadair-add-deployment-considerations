@@ -164,7 +164,8 @@
       <t>Considerations related to hosting a DNS forwarder in a local network
       are described in <xref target="forwarder"></xref>. In contexts where
       CPEs can't be upgraded to support DNR, Discovery of Designated Resolvers
-      (DDR) <xref target="I-D.ietf-add-ddr"></xref> can be used. See .</t>
+      (DDR) <xref target="I-D.ietf-add-ddr"></xref> can be used. See <xref
+      target="legacy"></xref> for more details.</t>
 
       <t>Techniques, such as the one defined in <xref
       target="I-D.boucadair-opsawg-add-encrypted-dns"></xref>, can be enabled
