@@ -175,6 +175,10 @@
       assumption about the internal behavior at the network side to feed the
       Encrypted DNS options that are supplied to requesting hosts; only the
       external observed behavior is detailed in the following sections.</t>
+
+      <t>Policies to guide the activation and selection of encrypted DNS can
+      be configured by users using implementation specific means (e.g., CPE
+      management interface). </t>
     </section>
 
     <section anchor="notation" title="Terminology">
@@ -182,7 +186,16 @@
       target="RFC8499"></xref>.</t>
 
       <t>The following additional terms are used: <list style="hanging">
+          <t hangText="DHCP:">refers to both DHCPv4 and DHCPv6.</t>
+
           <t hangText="Do53:">refers to unencrypted DNS.</t>
+
+          <t hangText="DNR:">refers to the Discovery of Network-designated
+          Resolvers procedure defined in <xref
+          target="I-D.ietf-add-dnr"></xref>.</t>
+
+          <t hangText="DDR:">refers to the Discovery of Designated Resolvers
+          procedure defined in <xref target="I-D.ietf-add-ddr"></xref>.</t>
 
           <t hangText="Encrypted DNS:">refers to a scheme where DNS exchanges
           are transported over an encrypted channel. Examples of encrypted DNS
@@ -196,8 +209,6 @@
 
           <t hangText="Unmanaged CPE:">refers to a CPE that is not managed by
           an ISP.</t>
-
-          <t hangText="DHCP:">refers to both DHCPv4 and DHCPv6.</t>
         </list></t>
     </section>
 
@@ -320,8 +331,8 @@ Legend:
 
           <t>The DNS client discovers whether the network-designated DNS
           resolver supports a given encrypted DNS scheme (e.g., DoT or DoH) by
-          using the "alpn" service parameter (Section 3.1.5 of <xref
-          target="I-D.ietf-add-dnr"></xref>).</t>
+          using the "alpn" service parameter (<xref section="3.1.5"
+          target="I-D.ietf-add-ddr"></xref>).</t>
 
           <t><figure align="center" anchor="wan"
               title="Encrypted DNS in the WAN">
@@ -386,8 +397,7 @@ Legend:
         <section title="Proxied DNS">
           <t><xref target="proxied"></xref> shows various deployments where
           the CPE embeds a caching DNS forwarder. Cases (b) and (d) involves a
-          host (called legacy host) that do not support DNR <xref
-          target="I-D.ietf-add-dnr"></xref>.</t>
+          host (called legacy host) that do not support DNR.</t>
 
           <t><figure align="center" anchor="proxied"
               title="Proxied Encrypted DNS Sessions">
@@ -665,7 +675,7 @@ Legend:
       target="I-D.ietf-add-dnr"></xref> won't be able to learn the encrypted
       DNS resolver hosted by the ISP, in particular. If the ADN is not
       discovered using DHCP/RA, such hosts will have to fallback to use
-      discovery using the resolver IP address as defined in Section 4 of <xref
+      discovery using the resolver IP address as defined in <xref section="4"
       target="I-D.ietf-add-ddr"></xref> to discover the designated
       resolvers.</t>
 
@@ -675,8 +685,8 @@ Legend:
     </section>
 
     <section anchor="Security" title="Security Considerations">
-      <t>DNR-related security considerations are discussed in Section 7 of
-      <xref target="I-D.ietf-add-dnr"></xref>.</t>
+      <t>DNR-related security considerations are discussed in <xref
+      section="7" target="I-D.ietf-add-ddr"></xref>.</t>
     </section>
 
     <section anchor="IANA" title="IANA Considerations">
