@@ -374,9 +374,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    DNR.  Direct encrypted DNS sessions will be established between a
    host serviced by a CPE and an ISP-supplied encrypted DNS resolver.
    Figure 3 shows the example of exchanges that occur for an encrypted
-   DNS capable host.
-
-
+   DNS capable host.  The DNR exchanges that occur at the CPE WAN may be
+   terminated by a centralized DHCP server or a router that is located
+   at the edge of the ISP's network.
 
 
 
@@ -413,7 +413,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
 
    Figure 4 shows various deployments where the CPE embeds a caching DNS
    forwarder.  Cases (b) and (d) involves a host (called legacy host)
-   that do not support DNR.
+   that does not support DNR.
 
  (a)
 

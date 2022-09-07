@@ -371,8 +371,10 @@ Legend:
           network by using, e.g., DNR. Direct encrypted DNS sessions will be
           established between a host serviced by a CPE and an ISP-supplied
           encrypted DNS resolver. <xref target="direct"></xref> shows the
-          example of exchanges that occur for an encrypted DNS capable
-          host.</t>
+          example of exchanges that occur for an encrypted DNS capable host.
+          The DNR exchanges that occur at the CPE WAN may be terminated by a
+          centralized DHCP server or a router that is located at the edge of
+          the ISP's network.</t>
 
           <t><figure align="center" anchor="direct"
               title="Direct Encrypted DNS Sessions">
@@ -397,7 +399,7 @@ Legend:
         <section title="Proxied DNS">
           <t><xref target="proxied"></xref> shows various deployments where
           the CPE embeds a caching DNS forwarder. Cases (b) and (d) involves a
-          host (called legacy host) that do not support DNR.</t>
+          host (called legacy host) that does not support DNR.</t>
 
           <t><figure align="center" anchor="proxied"
               title="Proxied Encrypted DNS Sessions">
