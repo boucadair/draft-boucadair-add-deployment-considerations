@@ -325,9 +325,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers    September 2022
    DNR is attempted first because it requires fewer round trips to any
    network peer because all of the necessary information to use
    encrypted DNS is presented directly by the CPE.  DDR requires the DNS
-   client to receive configuration from the CPE and then further query
-   for encrypted DNS support from the DNS resolver before any encrypted
-   DNS can be attempted.
+   client to receive Do53 resolver configuration from the CPE and then
+   further query for encrypted DNS support from the DNS resolver before
+   any encrypted DNS can be attempted.
 
 
 

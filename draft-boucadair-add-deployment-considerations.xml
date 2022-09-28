@@ -341,9 +341,9 @@ Legend:
           <t>DNR is attempted first because it requires fewer round trips to
           any network peer because all of the necessary information to use
           encrypted DNS is presented directly by the CPE. DDR requires the DNS
-          client to receive configuration from the CPE and then further query
-          for encrypted DNS support from the DNS resolver before any encrypted
-          DNS can be attempted.</t>
+          client to receive Do53 resolver configuration from the CPE and then
+          further query for encrypted DNS support from the DNS resolver before
+          any encrypted DNS can be attempted.</t>
 
           <t><figure align="center" anchor="wan"
               title="Encrypted DNS in the WAN">
