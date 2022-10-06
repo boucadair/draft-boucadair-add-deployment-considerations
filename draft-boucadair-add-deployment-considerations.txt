@@ -652,14 +652,14 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
    DDR requires proving possession of an IP address, as the DDR
    certificate contains the server's IPv4 and IPv6 addresses and is
-   signed by a WebPKI certificate authority.  DDR is constrained to
-   public IP addresses because WebPKI certificate authorities will not
-   sign special-purpose IP addresses [RFC6890], most notably IPv4
-   private-use [RFC1918], IPv4 shared address [RFC6598], or IPv6
-   Unique-Local [RFC8190] address space.  A tempting solution is to use
-   the CPE's WAN IP address for DDR and prove possession of that IP
-   address.  However, the CPE's WAN IPv4 address will not be a public
-   IPv4 address if the CPE is behind another layer of NAT (either CGN or
+   signed by a certificate authority.  DDR is constrained to public IP
+   addresses because WebPKI certificate authorities will not sign
+   special-purpose IP addresses [RFC6890], most notably IPv4 private-use
+   [RFC1918], IPv4 shared address [RFC6598], or IPv6 Unique-Local
+   [RFC8190] address space.  A tempting solution is to use the CPE's WAN
+   IP address for DDR and prove possession of that IP address.  However,
+   the CPE's WAN IPv4 address will not be a public IPv4 address if the
+   CPE is behind another layer of NAT (either Carrier Grade NAT (CGN) or
    another on-premise NAT), reducing the success of this mechanism to
    CPE's WAN IPv6 address.  If the ISP renumbers the subscriber's
    network suddenly (rather than slow IPv6 renumbering described in
@@ -678,17 +678,18 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    resolver's certificate contains the FQDN.  There are two mechanisms
    for the CPE to obtain that certificate: using its WAN address or
    requesting its signed certificate from an Internet-facing server used
-   for remote management and provisioning of CPE (e.g., ACS server in
-   CPE WAN Management Protocol [TR-069]).  If using its WAN address, the
-   CPE needs a public IPv4 or IPv6 address and DNS A or AAAA records
-   pointing to the CPE's WAN address to prove possession of the DNS name
-   to obtain a WebPKI CA-signed certificate.  However, the CPE's WAN
-   address will not be a public IPv4 address if the CPE is behind
-   another layer of NAT (either CGN or another on-premise NAT), reducing
-   the success of this mechanism to CPE's WAN IPv6 address.  If the
-   subscribers IPv4 or IPv6 address is included in the certificate name
-   (e.g., "dyn-192-0-2-1.example.net") then DNR will experience IP
-   renumbering complications identical to DDR, described above.
+   for remote management and provisioning of CPE (e.g., the Auto
+   Configuration Server (ACS) in CPE WAN Management Protocol [TR-069]).
+   If using its WAN address, the CPE needs a public IPv4 or a global
+   unicast IPv6 address and DNS A or AAAA records pointing to the CPE's
+   WAN address to prove possession of the DNS name to obtain a WebPKI
+   CA-signed certificate.  However, the CPE's WAN address will not be a
+   public IPv4 address if the CPE is behind another layer of NAT (either
+   CGN or another on-premise NAT), reducing the success of this
+   mechanism to CPE's WAN IPv6 address.  If the subscribers IPv4 or IPv6
+   address is included in the certificate name (e.g., "dyn-
+   192-0-2-1.example.net") then DNR will experience IP renumbering
+   complications identical to DDR, described above.
 
 5.2.  Managed CPEs
 
@@ -721,7 +722,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
    The unmanaged CPE administrator can host an encrypted DNS forwarder
    on the unmanaged CPE.  This assumes the following:
-
 
 
 
