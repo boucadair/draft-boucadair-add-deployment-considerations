@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 <!-- This template is for creating an Internet Draft using xml2rfc,
      which is available here: http://xml.resource.org. -->
-
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <!-- used by XSLT processors -->
 <!-- For a complete list and description of processing instructions (PIs), 
@@ -29,7 +28,7 @@
 <!-- end of list of popular I-D processing instructions -->
 <rfc category="info"
      docName="draft-boucadair-add-deployment-considerations-latest"
-     ipr="trust200902" submissionType="IETF">
+     ipr="trust200902" submissionType="independent">
   <front>
     <title abbrev="Discovery of Encrypted DNS Resolvers">Discovery of
     Encrypted DNS Resolvers: Deployment Considerations</title>
@@ -121,11 +120,17 @@
     <abstract>
       <t>The document discusses some deployment considerations of the various
       options to discover encrypted DNS resolvers (e.g., DNS-over-HTTPS,
-      DNS-over-TLS, or DNS-over-QUIC). Particularly, this document is meant to
-      exemplify how Discovery of Network-designated Resolvers (DNR) and
-      Discovery of Designated Resolvers (DDR) can be used in typical
-      deployment contexts. Also, the document includes considerations related
-      to hosting a DNS forwarder in local networks.</t>
+      DNS-over-TLS, or DNS-over-QUIC). In particular, the document describes
+      how Discovery of Network-designated Resolvers (DNR) and Discovery of
+      Designated Resolvers (DDR) can be used in typical deployment contexts.
+      Also, the document includes considerations related to hosting a DNS
+      forwarder in local networks.</t>
+
+      <t>This document does not intend to provide deployment recommendations,
+      but is meant to exemplify how operators can deploy the encrypted DNS
+      discovery mechanisms. In addition, the document illustrates the
+      feasibility of hosting encrypted DNS forwarders in Customer Premises
+      Equipment (CPEs). </t>
     </abstract>
   </front>
 
@@ -150,7 +155,9 @@
       discovery of encrypted DNS resolvers such as DoH <xref
       target="RFC8484"></xref>, DNS-over-TLS (DoT) <xref
       target="RFC7858"></xref>, or DNS-over-QUIC (DoQ) <xref
-      target="RFC9250"></xref> in local networks.</t>
+      target="RFC9250"></xref> in local networks. The document is not setting
+      deployment recommendations but is exemplifying how encrypted DNS
+      discovery mechanisms can be deployed in typical networks. </t>
 
       <t>Sample target deployment scenarios are discussed in <xref
       target="depl"></xref>; both managed and unmanaged Customer Premises
@@ -165,7 +172,7 @@
       target="legacy"></xref> for more details.</t>
 
       <t>Techniques, such as the one defined in <xref
-      target="I-D.boucadair-opsawg-add-encrypted-dns"></xref>, can be enabled
+      target="I-D.ietf-opsawg-add-encrypted-dns"></xref>, can be enabled
       together with <xref target="I-D.ietf-add-dnr"></xref> to feed the
       Encrypted DNS options. However, the document does not make any
       assumption about the internal behavior at the network side to feed the
@@ -174,7 +181,7 @@
 
       <t>Policies to guide the activation and selection of encrypted DNS can
       be configured by users using implementation specific means (e.g., CPE
-      management interface). </t>
+      management interface).</t>
     </section>
 
     <section anchor="notation" title="Terminology">
@@ -208,48 +215,41 @@
         </list></t>
     </section>
 
+    <section title="DDR/DNR Comparison and Naming Constraints">
+      <t>DDR requires proving possession of an IP address, as the DDR
+      certificate contains the server's IPv4 and IPv6 addresses and is signed
+      by a WebPKI certificate authority. DDR is constrained to public IP
+      addresses because WebPKI certificate authorities will not sign
+      special-purpose IP addresses <xref target="RFC6890"></xref>, most
+      notably IPv4 private-use <xref target="RFC1918"></xref>, IPv4 shared
+      address <xref target="RFC6598"></xref>, or IPv6 <xref
+      target="RFC8190">Unique-Local</xref> address space. A tempting solution
+      is to use the CPE's WAN IP address for DDR and prove possession of that
+      IP address. However, the CPE's WAN IPv4 address will not be a public
+      IPv4 address if the CPE is behind another layer of NAT (either CGN or
+      another on-premise NAT), reducing the success of this mechanism to CPE's
+      WAN IPv6 address. If the ISP renumbers the subscriber's network suddenly
+      (rather than slow IPv6 renumbering described in <xref
+      target="RFC4192"></xref>) encrypted DNS service will be delayed until
+      that new certificate is acquired.</t>
 
-<section title="DDR/DNR Comparison and Naming Constraints">
+      <t>DNR requires proving possession of an FQDN as the encrypted
+      resolver's certificate contains the FQDN. There are two mechanisms for
+      the CPE to obtain that certificate: using its WAN address or requesting
+      its signed certificate from an Internet-facing server used for remote
+      management and provisioning of CPE (e.g., ACS server in CPE WAN
+      Management Protocol <xref target="TR-069"></xref>). If using its WAN
+      address, the CPE needs a public IPv4 or IPv6 address and DNS A or AAAA
+      records pointing to the CPE's WAN address to prove possession of the DNS
+      name to obtain a WebPKI CA-signed certificate. However, the CPE's WAN
+      address will not be a public IPv4 address if the CPE is behind another
+      layer of NAT (either CGN or another on-premise NAT), reducing the
+      success of this mechanism to CPE's WAN IPv6 address. If the subscribers
+      IPv4 or IPv6 address is included in the certificate name (e.g.,
+      "dyn-192-0-2-1.example.net") then DNR will experience IP renumbering
+      complications identical to DDR, described above.</t>
+    </section>
 
-  <t>DDR requires proving possession of an IP address, as the DDR
-  certificate contains the server's IPv4 and IPv6 addresses and is
-  signed by a WebPKI certificate authority.  DDR is constrained to
-  public IP addresses because WebPKI certificate authorities will not
-  sign special-purpose IP addresses <xref target="RFC6890"></xref>,
-  most notably IPv4 private-use <xref target="RFC1918"></xref>, IPv4
-  shared address <xref target="RFC6598"></xref>, or IPv6 <xref
-  target="RFC8190">Unique-Local</xref> address space.  A tempting
-  solution is to use the CPE's WAN IP address for DDR and prove
-  possession of that IP address. However, the CPE's WAN IPv4 address
-  will not be a public IPv4 address if the CPE is behind another layer
-  of NAT (either CGN or another on-premise NAT), reducing the success
-  of this mechanism to CPE's WAN IPv6 address.  If the ISP renumbers
-  the subscriber's network suddenly (rather than slow IPv6 renumbering
-  described in <xref target="RFC4192"></xref>) encrypted DNS service
-  will be delayed until that new certificate is acquired.</t>
-
-  <t>DNR requires proving possession of an FQDN as the encrypted
-  resolver's certificate contains the FQDN.  There are two mechanisms
-  for the CPE to obtain that certificate: using its WAN address or
-  requesting its signed certificate from an Internet-facing server
-  used for remote management and provisioning of CPE (e..g, ACS server
-  in CPE WAN Management Protocol [TR-069]).  If using its WAN address,
-  the CPE needs a public IPv4 or IPv6 address and DNS A or AAAA
-  records pointing to the CPE's WAN address to prove possession of the
-  DNS name to obtain a WebPKI CA-signed certificate.  However, the
-  CPE's WAN address will not be a public IPv4 address if the CPE is
-  behind another layer of NAT (either CGN or another on-premise NAT),
-  reducing the success of this mechanism to CPE's WAN IPv6 address.
-  If the subscribers IPv4 or IPv6 address is included in the
-  certificate name (e.g., "dyn-192-0-2-1.example.net") then DNR will
-  experience IP renumbering complications identical to DDR, described
-  above.</t>
-
-</section>
-
-
-
-    
     <section anchor="depl" title="Sample Target Deployment Scenarios">
       <t>ISPs usually provide DNS resolvers to their customers. To that aim,
       ISPs deploy the following mechanisms to advertise a list of DNS
@@ -368,14 +368,15 @@ Legend:
           with the discovered DoH server.</t>
 
           <t>When the CPE supports DNR, the DNS client discovers whether the
-          network-designated DNS resolver supports a given encrypted DNS scheme
-          (e.g., DoT or DoH) by using the "alpn" service parameter
-          (<xref section="3.1.5" target="I-D.ietf-add-dnr"></xref>). Otherwise,
-          the DNS client uses DDR with the Do53 resolver advertised by the CPE
-          and upgrades to encrypted DNS if that succeeds. Otherwise, the DNS
-          client may fall back to using unencrypted DNS to the IP address
-          advertised by the CPE or use some other configuration it has.</t>
-          
+          network-designated DNS resolver supports a given encrypted DNS
+          scheme (e.g., DoT or DoH) by using the "alpn" service parameter
+          (<xref section="3.1.5" target="I-D.ietf-add-dnr"></xref>).
+          Otherwise, the DNS client uses DDR with the Do53 resolver advertised
+          by the CPE and upgrades to encrypted DNS if that succeeds.
+          Otherwise, the DNS client may fall back to using unencrypted DNS to
+          the IP address advertised by the CPE or use some other configuration
+          it has.</t>
+
           <t>DNR is attempted first because it requires fewer round trips to
           any network peer because all of the necessary information to use
           encrypted DNS is presented directly by the CPE. DDR requires the DNS
@@ -558,7 +559,7 @@ Legend:
         <section title="Internal Unmanaged CPEs">
           <t>Customers may also decide to deploy internal routers (called
           hereafter, Internal CPEs) for a variety of reasons that are not
-          detailed here. </t>
+          detailed here.</t>
 
           <t>Absent any explicit configuration on the internal CPE to override
           the DNS configuration it receives from the ISP-supplied CPE, an
@@ -589,7 +590,7 @@ Host--(    Network#A   CPE----CPE---(    DNS Resolver )
           configuration of an unmanaged CPE to use his/her favorite encryptdd
           DNS resolvers instead. Encrypted DNS sessions can be established
           directly between a host and a 3rd Party DNS resolver (see <xref
-          target="internal_3"></xref>). </t>
+          target="internal_3"></xref>).</t>
 
           <t><figure align="center" anchor="internal_3"
               title="Direct Encrypted DNS Sessions with a Third Party DNS Resolver ">
@@ -763,25 +764,24 @@ Legend:
 
   <back>
     <references title="Normative References">
-
       <?rfc include='reference.I-D.ietf-add-dnr.xml' ?>
-      <?rfc include='reference.I-D.ietf-add-ddr.xml' ?>
 
+      <?rfc include='reference.I-D.ietf-add-ddr.xml' ?>
     </references>
 
     <references title="Informative References">
+      <?rfc include='reference.RFC.6890.xml'?>
 
-<?rfc include='reference.RFC.6890.xml'?>
-<?rfc include='reference.RFC.6598.xml'?>
-<?rfc include='reference.RFC.8190.xml'?>
-<?rfc include='reference.RFC.1918.xml'?>
-<?rfc include='reference.RFC.4192.xml'?>
+      <?rfc include='reference.RFC.6598.xml'?>
 
+      <?rfc include='reference.RFC.8190.xml'?>
 
+      <?rfc include='reference.RFC.1918.xml'?>
+
+      <?rfc include='reference.RFC.4192.xml'?>
 
       <?rfc include='reference.RFC.8499.xml'?>
 
-	    
       <?rfc include='reference.RFC.3646.xml'?>
 
       <?rfc include='reference.RFC.8520.xml'?>
@@ -796,7 +796,7 @@ Legend:
 
       <?rfc include='reference.I-D.ietf-v6ops-rfc7084-bis.xml' ?>
 
-      <?rfc include='reference.I-D.boucadair-opsawg-add-encrypted-dns.xml'?>
+      <?rfc include='reference.I-D.ietf-opsawg-add-encrypted-dns.xml'?>
 
       <?rfc include='reference.I-D.ietf-add-split-horizon-authority.xml'?>
 
