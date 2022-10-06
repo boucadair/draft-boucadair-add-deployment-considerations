@@ -12,7 +12,9 @@ Expires: 8 April 2023                                              Nokia
                                                             Open-Xchange
                                                                T. Jensen
                                                                Microsoft
+
                                                           5 October 2022
+
 
 
     Discovery of Encrypted DNS Resolvers: Deployment Considerations
@@ -43,7 +45,9 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
+
    This Internet-Draft will expire on 8 April 2023.
+
 
 Copyright Notice
 
@@ -53,8 +57,9 @@ Copyright Notice
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                  [Page 1]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -109,8 +114,9 @@ Table of Contents
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                  [Page 2]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -165,8 +171,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                  [Page 3]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -221,8 +228,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                  [Page 4]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -277,8 +285,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                  [Page 5]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -313,9 +322,21 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    For example, DoH-capable DNS clients establish the DoH session with
    the discovered DoH server.
 
-   The DNS client discovers whether the network-designated DNS resolver
-   supports a given encrypted DNS scheme (e.g., DoT or DoH) by using the
-   "alpn" service parameter (Section 3.1.5 of [I-D.ietf-add-dnr]).
+   When the CPE supports DNR, the DNS client discovers whether the
+   network-designated DNS resolver supports a given encrypted DNS scheme
+   (e.g., DoT or DoH) by using the "alpn" service parameter
+   (Section 3.1.5 of [I-D.ietf-add-dnr]).  Otherwise, the DNS client
+   uses DDR with the Do53 resolver advertised by the CPE and upgrades to
+   encrypted DNS if that succeeds.  Otherwise, the DNS client may fall
+   back to using unencrypted DNS to the IP address advertised by the CPE
+   or use some other configuration it has.
+
+   DNR is attempted first because it requires fewer round trips to any
+   network peer because all of the necessary information to use
+   encrypted DNS is presented directly by the CPE.  DDR requires the DNS
+   client to receive Do53 resolver configuration from the CPE and then
+   further query for encrypted DNS support from the DNS resolver before
+   any encrypted DNS can be attempted.
 
 
 
@@ -334,7 +355,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 Boucadair, et al.         Expires 8 April 2023                  [Page 6]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -389,8 +410,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                  [Page 7]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -413,7 +435,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
    Figure 4 shows various deployments where the CPE embeds a caching DNS
    forwarder.  Cases (b) and (d) involves a host (called legacy host)
-   that does not support DNR.
+   that does not support DNR.  In all cases, DDR is not applicable
+   because DDR requires the use of public IP addresses for proper
+   verification of ownership which the CPE will not be using.
 
    (a)
 
@@ -440,14 +464,17 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
                 |<=======Do53========>|<=Encrypted=>|
                 |                     |     DNS     |
 
+
    (c)
 
 
 
 
 Boucadair, et al.         Expires 8 April 2023                  [Page 8]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
+
 
 
                    ,--,--,--.             ,--,--,--.
@@ -501,8 +528,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                  [Page 9]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -557,8 +585,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                 [Page 10]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -588,7 +617,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 4.  Hosting Encrypted DNS Forwarder in Local Networks
 
    This section discusses some deployment considerations to host an
-   encrypted DNS forwarder within a local network.
+   encrypted DNS forwarder within a local network.  DDR does not apply
+   to any of these scenarios for the same reason it does not apply to
+   any of the proxied DNS scenarios.
 
 4.1.  Managed CPEs
 
@@ -613,8 +644,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                 [Page 11]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -669,8 +701,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                 [Page 12]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -725,8 +758,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                 [Page 13]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -781,8 +815,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                 [Page 14]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -837,8 +872,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                 [Page 15]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -893,8 +929,9 @@ Authors' Addresses
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                 [Page 16]
-
+
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
@@ -949,4 +986,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
+
 Boucadair, et al.         Expires 8 April 2023                 [Page 17]
+
