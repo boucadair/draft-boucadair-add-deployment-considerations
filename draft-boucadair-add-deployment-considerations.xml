@@ -329,10 +329,21 @@ Legend:
           <t>For example, DoH-capable DNS clients establish the DoH session
           with the discovered DoH server.</t>
 
-          <t>The DNS client discovers whether the network-designated DNS
-          resolver supports a given encrypted DNS scheme (e.g., DoT or DoH) by
-          using the "alpn" service parameter (<xref section="3.1.5"
-          target="I-D.ietf-add-dnr"></xref>).</t>
+          <t>When the CPE supports DNR, the DNS client discovers whether the
+          network-designated DNS resolver supports a given encrypted DNS scheme
+          (e.g., DoT or DoH) by using the "alpn" service parameter
+          (<xref section="3.1.5" target="I-D.ietf-add-dnr"></xref>). Otherwise,
+          the DNS client uses DDR with the Do53 resolver advertised by the CPE
+          and upgrades to encrypted DNS if that succeeds. Otherwise, the DNS
+          client may fall back to using unencrypted DNS to the IP address
+          advertised by the CPE or use some other configuration it has.</t>
+          
+          <t>DNR is attempted first because it requires fewer round trips to
+          any network peer because all of the necessary information to use
+          encrypted DNS is presented directly by the CPE. DDR requires the DNS
+          client to receive Do53 resolver configuration from the CPE and then
+          further query for encrypted DNS support from the DNS resolver before
+          any encrypted DNS can be attempted.</t>
 
           <t><figure align="center" anchor="wan"
               title="Encrypted DNS in the WAN">
@@ -399,7 +410,10 @@ Legend:
         <section title="Proxied DNS">
           <t><xref target="proxied"></xref> shows various deployments where
           the CPE embeds a caching DNS forwarder. Cases (b) and (d) involves a
-          host (called legacy host) that does not support DNR.</t>
+          host (called legacy host) that does not support DNR. In all cases,
+          DDR is not applicable because DDR requires the use of public IP
+          addresses for proper verification of ownership which the CPE will
+          not be using.</t>
 
           <t><figure align="center" anchor="proxied"
               title="Proxied Encrypted DNS Sessions">
@@ -564,7 +578,9 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Resolver
     <section anchor="forwarder"
              title="Hosting Encrypted DNS Forwarder in Local Networks">
       <t>This section discusses some deployment considerations to host an
-      encrypted DNS forwarder within a local network.</t>
+      encrypted DNS forwarder within a local network. DDR does not apply to
+      any of these scenarios for the same reason it does not apply to any of
+      the proxied DNS scenarios.</t>
 
       <section anchor="forwarder_m" title="Managed CPEs">
         <t>The section discusses mechanisms that can be used to host an
