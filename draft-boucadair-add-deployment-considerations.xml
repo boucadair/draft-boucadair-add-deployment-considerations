@@ -123,8 +123,7 @@
       DNS-over-TLS, or DNS-over-QUIC). In particular, the document describes
       how Discovery of Network-designated Resolvers (DNR) and Discovery of
       Designated Resolvers (DDR) can be used in typical deployment contexts.
-      Also, the document includes considerations related to hosting a DNS
-      forwarder in local networks.</t>
+      </t>
 
       <t>This document does not intend to provide deployment recommendations,
       but is meant to exemplify how operators can deploy the encrypted DNS
@@ -184,11 +183,11 @@
     </section>
 
     <section title="Scope &amp; Target Audience">
-      <t>This document is not setting deployment recommendations; it is
-      however scoped to exemplify how encrypted DNS discovery mechanisms can
-      be deployed in typical networks. These considerations are drawn to
-      assist Internet Service Providers (ISPs), CPE vendors, and home network
-      security service providers. </t>
+      <t>This document is not setting deployment recommendations; it is,
+      however; scoped to exemplify how encrypted DNS discovery mechanisms can
+      be deployed in typical networks. These considerations are specifically
+      drawn to assist Internet Service Providers (ISPs), CPE vendors, and home
+      network security service providers. </t>
 
       <t>Concretely, generalizing the use of encrypted DNS while preserving
       services that are offered to users (especially, those services that
@@ -197,23 +196,23 @@
           <t hangText="ISPs and home network security service providers:">ISPs
           who need to investigate and elaborate plans about how their managed
           CPEs will be upgraded to support encrypted DNS forwarders and
-          whether home network security mechanisms will still need to enforce
-          per-device policies.<vspace blankLines="1" />ISPs may also need to
-          investigate plans to offer encrypted DNS services even for CPE
-          models whose firmware cannot be updated. For example, ISPs may
-          consider updating the CPE configuration to point to the ISPs Do53
-          resolver for DDR to work.<vspace blankLines="1" />ISPs will also
-          need to assess the impact of bypassing local DNS forwarders on their
-          DNS infrastructure and the services they are offering to their
+          whether home network security mechanisms will still be needed to
+          enforce per-device policies. <vspace blankLines="1" />Some ISPs may
+          also need to investigate plans to offer encrypted DNS services even
+          for CPE models whose firmware cannot be updated. For example, ISPs
+          may consider updating the CPE configuration to point to the ISPs
+          Do53 resolver for DDR to work.<vspace blankLines="1" />ISPs will
+          also need to assess the impact of bypassing local DNS forwarders on
+          their DNS infrastructure and the services they are offering to their
           subscribers. </t>
 
           <t hangText="CPE vendors:">to help them assess the feasibly of CPEs
           to host an encrypted DNS forwarder. To that aim, the document
-          sketches some realization approaches. For example, some DNS
-          providers have optimized the encrypted DNS forwarder to run in a
-          container in the home routers that can be optionally integrated with
-          home network security service agent. CPE vendors can leverage that
-          effort.</t>
+          sketches some realization approaches. For example, CPE vendors may
+          learn from the effort that was conducted by some DNS providers to
+          optimize the encrypted DNS forwarder to run in a container in home
+          routers and how this may be integrated with home network security
+          service agents. </t>
 
           <t hangText="Users:">may want to avoid depending on the capabilities
           of their ISP-supplied CPE may consider deploying dedicated CPE which

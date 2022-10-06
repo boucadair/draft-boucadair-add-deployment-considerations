@@ -25,8 +25,7 @@ Abstract
    DNS-over-TLS, or DNS-over-QUIC).  In particular, the document
    describes how Discovery of Network-designated Resolvers (DNR) and
    Discovery of Designated Resolvers (DDR) can be used in typical
-   deployment contexts.  Also, the document includes considerations
-   related to hosting a DNS forwarder in local networks.
+   deployment contexts.
 
    This document does not intend to provide deployment recommendations,
    but is meant to exemplify how operators can deploy the encrypted DNS
@@ -50,6 +49,7 @@ Status of This Memo
    material or to cite them other than as "work in progress."
 
    This Internet-Draft will expire on 9 April 2023.
+
 
 
 
@@ -151,11 +151,11 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 2.  Scope & Target Audience
 
-   This document is not setting deployment recommendations; it is
-   however scoped to exemplify how encrypted DNS discovery mechanisms
-   can be deployed in typical networks.  These considerations are drawn
-   to assist Internet Service Providers (ISPs), CPE vendors, and home
-   network security service providers.
+   This document is not setting deployment recommendations; it is,
+   however; scoped to exemplify how encrypted DNS discovery mechanisms
+   can be deployed in typical networks.  These considerations are
+   specifically drawn to assist Internet Service Providers (ISPs), CPE
+   vendors, and home network security service providers.
 
    Concretely, generalizing the use of encrypted DNS while preserving
    services that are offered to users (especially, those services that
@@ -172,11 +172,11 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
       investigate and elaborate plans about how their managed CPEs will
       be upgraded to support encrypted DNS forwarders and whether home
-      network security mechanisms will still need to enforce per-device
-      policies.
+      network security mechanisms will still be needed to enforce per-
+      device policies.
 
-      ISPs may also need to investigate plans to offer encrypted DNS
-      services even for CPE models whose firmware cannot be updated.
+      Some ISPs may also need to investigate plans to offer encrypted
+      DNS services even for CPE models whose firmware cannot be updated.
       For example, ISPs may consider updating the CPE configuration to
       point to the ISPs Do53 resolver for DDR to work.
 
@@ -186,10 +186,11 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
    CPE vendors:  to help them assess the feasibly of CPEs to host an
       encrypted DNS forwarder.  To that aim, the document sketches some
-      realization approaches.  For example, some DNS providers have
-      optimized the encrypted DNS forwarder to run in a container in the
-      home routers that can be optionally integrated with home network
-      security service agent.  CPE vendors can leverage that effort.
+      realization approaches.  For example, CPE vendors may learn from
+      the effort that was conducted by some DNS providers to optimize
+      the encrypted DNS forwarder to run in a container in home routers
+      and how this may be integrated with home network security service
+      agents.
 
    Users:  may want to avoid depending on the capabilities of their ISP-
       supplied CPE may consider deploying dedicated CPE which uses DNR
@@ -216,8 +217,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
       defined in [I-D.ietf-add-ddr].
 
    Encrypted DNS:  refers to a scheme where DNS exchanges are
-      transported over an encrypted channel.  Examples of encrypted DNS
-      are DoT, DoH, or DoQ.
+
 
 
 
@@ -225,6 +225,9 @@ Boucadair, et al.         Expires 9 April 2023                  [Page 4]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
+
+      transported over an encrypted channel.  Examples of encrypted DNS
+      are DoT, DoH, or DoQ.
 
    Encrypted DNS options:  refers to the options defined in
       [I-D.ietf-add-dnr].
@@ -267,13 +270,10 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    to configure their favorite DNS servers.  This document permits such
    deployments.
 
-     (a) Fixed networks with a local DNS resolver
 
-                                      ,--,--,--.
-         +-+      LAN     +---+    ,-'           `-.
-         |H+--------------+CPE+---+      ISP        )
-         +-+              +---+    `-.          ,-'
-          |                           `--'--'--'
+
+
+
 
 
 
@@ -282,6 +282,13 @@ Boucadair, et al.         Expires 9 April 2023                  [Page 5]
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
+     (a) Fixed networks with a local DNS resolver
+
+                                      ,--,--,--.
+         +-+      LAN     +---+    ,-'           `-.
+         |H+--------------+CPE+---+      ISP        )
+         +-+              +---+    `-.          ,-'
+          |                           `--'--'--'
           |                               |
           |<=============Do53============>|
           |                               |
@@ -323,13 +330,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
           |                           ,--,--,-.           |
          +-+      LAN     +---+    ,-'         .          |
          |H+--------------+CPE+---+             \         |
-         +-+              +---+  ,'     ISP     `-.    3rd Party
-                                 (                )--- DNS Resolver
-                            +-----+-.          ,-'        |
-         +-+                |        `--'--'--'           |
-         |H+----------------+                             |
-         +-+                                              |
-          |                                               |
 
 
 
@@ -338,6 +338,13 @@ Boucadair, et al.         Expires 9 April 2023                  [Page 6]
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
+         +-+              +---+  ,'     ISP     `-.    3rd Party
+                                 (                )--- DNS Resolver
+                            +-----+-.          ,-'        |
+         +-+                |        `--'--'--'           |
+         |H+----------------+                             |
+         +-+                                              |
+          |                                               |
           |<==================Do53=======================>|
           |                                               |
 
@@ -377,13 +384,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    client to receive Do53 resolver configuration from the CPE and then
    further query for encrypted DNS support from the DNS resolver before
    any encrypted DNS can be attempted.
-
-
-
-
-
-
-
 
 
 
