@@ -798,6 +798,8 @@ Legend:
     <section title="Acknowledgements">
       <t>This text was initially part of <xref
       target="I-D.ietf-add-dnr"></xref>.</t>
+
+      <t>Thanks to Eliot Lear for the ISE review.</t>
     </section>
   </middle>
 
