@@ -122,14 +122,14 @@
       options to discover encrypted DNS resolvers (e.g., DNS-over-HTTPS,
       DNS-over-TLS, or DNS-over-QUIC). In particular, the document describes
       how Discovery of Network-designated Resolvers (DNR) and Discovery of
-      Designated Resolvers (DDR) can be used in typical deployment contexts.
-      </t>
+      Designated Resolvers (DDR) can be used in typical deployment
+      contexts.</t>
 
       <t>This document does not intend to provide deployment recommendations,
       but is meant to exemplify how operators can deploy the encrypted DNS
       discovery mechanisms. In addition, the document illustrates the
       feasibility of hosting encrypted DNS forwarders in Customer Premises
-      Equipment (CPEs). </t>
+      Equipment (CPEs).</t>
     </abstract>
   </front>
 
@@ -154,7 +154,7 @@
       discovery of encrypted DNS resolvers such as DoH <xref
       target="RFC8484"></xref>, DNS-over-TLS (DoT) <xref
       target="RFC7858"></xref>, or DNS-over-QUIC (DoQ) <xref
-      target="RFC9250"></xref> in local networks. </t>
+      target="RFC9250"></xref> in local networks.</t>
 
       <t>Sample target deployment scenarios are discussed in <xref
       target="depl"></xref>; both managed and unmanaged Customer Premises
@@ -187,7 +187,7 @@
       however; scoped to exemplify how encrypted DNS discovery mechanisms can
       be deployed in typical networks. These considerations are specifically
       drawn to assist Internet Service Providers (ISPs), CPE vendors, and home
-      network security service providers. </t>
+      network security service providers.</t>
 
       <t>Concretely, generalizing the use of encrypted DNS while preserving
       services that are offered to users (especially, those services that
@@ -204,7 +204,7 @@
           Do53 resolver for DDR to work.<vspace blankLines="1" />ISPs will
           also need to assess the impact of bypassing local DNS forwarders on
           their DNS infrastructure and the services they are offering to their
-          subscribers. </t>
+          subscribers.</t>
 
           <t hangText="CPE vendors:">to help them assess the feasibly of CPEs
           to host an encrypted DNS forwarder. To that aim, the document
@@ -212,13 +212,13 @@
           learn from the effort that was conducted by some DNS providers to
           optimize the encrypted DNS forwarder to run in a container in home
           routers and how this may be integrated with home network security
-          service agents. </t>
+          service agents.</t>
 
           <t hangText="Users:">may want to avoid depending on the capabilities
           of their ISP-supplied CPE may consider deploying dedicated CPE which
           uses DNR to advertise the local encrypted DNS information. <xref
           target="forwarder_u"></xref> discusses how DNR can be used in such
-          contexts. </t>
+          contexts.</t>
         </list></t>
 
       <t>This document is meant to assist future deployments and (hopefully)
@@ -455,10 +455,7 @@ Legend:
         <section title="Proxied DNS">
           <t><xref target="proxied"></xref> shows various deployments where
           the CPE embeds a caching DNS forwarder. Cases (b) and (d) involves a
-          host (called legacy host) that does not support DNR. In all cases,
-          DDR is not applicable because DDR requires the use of public IP
-          addresses for proper verification of ownership which the CPE will
-          not be using.</t>
+          host (called legacy host) that does not support DNR. </t>
 
           <t><figure align="center" anchor="proxied"
               title="Proxied Encrypted DNS Sessions">
@@ -623,9 +620,7 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Resolver
     <section anchor="forwarder"
              title="Hosting Encrypted DNS Forwarder in Local Networks">
       <t>This section discusses some deployment considerations to host an
-      encrypted DNS forwarder within a local network. DDR does not apply to
-      any of these scenarios for the same reason it does not apply to any of
-      the proxied DNS scenarios.</t>
+      encrypted DNS forwarder within a local network. </t>
 
       <section anchor="comp" title="DDR/DNR Comparison and Naming Constraints">
         <t>DDR requires proving possession of an IP address, as the DDR
@@ -647,21 +642,25 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Resolver
         acquired.</t>
 
         <t>DNR requires proving possession of an FQDN as the encrypted
-        resolver's certificate contains the FQDN. There are two mechanisms for
-        the CPE to obtain that certificate: using its WAN address or
-        requesting its signed certificate from an Internet-facing server used
-        for remote management and provisioning of CPE (e.g., the Auto
-        Configuration Server (ACS) in CPE WAN Management Protocol <xref
+        resolver's certificate contains the FQDN. The entity (e.g., ISP,
+        network administrator etc.) managing the CPE would assign a unique
+        FQDN to the CPE. There are two mechanisms for the CPE to obtain the
+        certificate for the FQDN: using its WAN address or requesting its
+        signed certificate from an Internet-facing server used for remote
+        management and provisioning of CPE (e.g., the Auto Configuration
+        Server (ACS) in CPE WAN Management Protocol <xref
         target="TR-069"></xref>). If using its WAN address, the CPE needs a
         public IPv4 or a global unicast IPv6 address and DNS A or AAAA records
         pointing to the CPE's WAN address to prove possession of the DNS name
-        to obtain a WebPKI CA-signed certificate. However, the CPE's WAN
-        address will not be a public IPv4 address if the CPE is behind another
-        layer of NAT (either CGN or another on-premise NAT), reducing the
-        success of this mechanism to CPE's WAN IPv6 address. If the
-        subscribers IPv4 or IPv6 address is included in the certificate name
-        (e.g., "dyn-192-0-2-1.example.net") then DNR will experience IP
-        renumbering complications identical to DDR, described above.</t>
+        to obtain a WebPKI CA-signed certificate, that is the CPE fullfills
+        the DNS or HTTP challenge discussed in ACME <xref
+        target="RFC8555"></xref>. However, the CPE's WAN address will not be a
+        public IPv4 address if the CPE is behind another layer of NAT (either
+        CGN or another on-premise NAT), reducing the success of this mechanism
+        to CPE's WAN IPv6 address. If the subscribers IPv4 or IPv6 address is
+        included in the certificate name (e.g., "dyn-192-0-2-1.example.net")
+        then DNR will experience IP renumbering complications identical to
+        DDR, described above.</t>
       </section>
 
       <section anchor="forwarder_m" title="Managed CPEs">
