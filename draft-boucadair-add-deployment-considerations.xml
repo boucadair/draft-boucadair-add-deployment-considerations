@@ -653,10 +653,33 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Resolver
         <t>DNR requires proving possession of an FQDN as the encrypted
         resolver's certificate contains the FQDN. The entity (e.g., ISP,
         network administrator) managing the CPE would assign a unique FQDN to
-        the CPE. The CPE can obtain the certificate for the FQDN by requesting
-        its signed certificate from an Internet-facing server used for remote
-        CPE management (e.g., the Auto Configuration Server (ACS) in the CPE
-        WAN Management Protocol <xref target="TR-069"></xref>).</t>
+        the CPE. There are two mechanisms for the CPE to obtain the
+        certificate for the FQDN: using one of its WAN IP addresses or
+        requesting its signed certificate from an Internet-facing server used
+        for remote CPE management (e.g., the Auto Configuration Server (ACS)
+        in the CPE WAN Management Protocol <xref target="TR-069"></xref>). If
+        using a CPE's WAN IP address, the CPE needs a public IPv4 or a global
+        unicast IPv6 address together with DNS A or AAAA records pointing to
+        that CPE's WAN address to prove possession of the DNS name to obtain a
+        WebPKI CA-signed certificate (that is, the CPE fullfills the DNS or
+        HTTP challenge discussed in ACME <xref target="RFC8555"></xref>).
+        However, a CPE's WAN address will not be a public IPv4 address if the
+        CPE is behind another layer of NAT (either a CGN or another on-premise
+        NAT), reducing the success of this mechanism to a CPE's WAN IPv6
+        address. If the subscribers IPv4 or IPv6 address is included in the
+        certificate name (e.g., "dyn- 192-0-2-1.example.net") then DNR will
+        experience IP renumbering complications identical to DDR, described
+        above. The former mechanism has the following limitations when ACME
+        protocol is used for certificate issuance:<list style="symbols">
+            <t>Each CPE would have to create a different account for ordering
+            a certificate. Where a large scale of CPEs request certificate
+            issuance for a large number of subdomains it could be treated as
+            an attacker by the CPE to overwhelm the CA. </t>
+
+            <t>The CPE would have to host a Internet-facing HTTP server or a
+            DNS authoritative server to complete the HTTP or DNS challenge.
+            </t>
+          </list></t>
       </section>
 
       <section anchor="forwarder_m" title="Managed CPEs">

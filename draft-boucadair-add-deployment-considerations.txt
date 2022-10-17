@@ -86,15 +86,15 @@ Table of Contents
      5.2.  Managed CPEs  . . . . . . . . . . . . . . . . . . . . . .  13
        5.2.1.  DNS Forwarders  . . . . . . . . . . . . . . . . . . .  13
        5.2.2.  ACME  . . . . . . . . . . . . . . . . . . . . . . . .  13
-     5.3.  Unmanaged CPEs  . . . . . . . . . . . . . . . . . . . . .  13
-   6.  Legacy CPEs . . . . . . . . . . . . . . . . . . . . . . . . .  15
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
-   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  15
+     5.3.  Unmanaged CPEs  . . . . . . . . . . . . . . . . . . . . .  14
+   6.  Legacy CPEs . . . . . . . . . . . . . . . . . . . . . . . . .  16
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
+   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  16
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  16
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  16
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  17
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -677,10 +677,32 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    DNR requires proving possession of an FQDN as the encrypted
    resolver's certificate contains the FQDN.  The entity (e.g., ISP,
    network administrator) managing the CPE would assign a unique FQDN to
-   the CPE.  The CPE can obtain the certificate for the FQDN by
+   the CPE.  There are two mechanisms for the CPE to obtain the
+   certificate for the FQDN: using one of its WAN IP addresses or
    requesting its signed certificate from an Internet-facing server used
    for remote CPE management (e.g., the Auto Configuration Server (ACS)
-   in the CPE WAN Management Protocol [TR-069]).
+   in the CPE WAN Management Protocol [TR-069]).  If using a CPE's WAN
+   IP address, the CPE needs a public IPv4 or a global unicast IPv6
+   address together with DNS A or AAAA records pointing to that CPE's
+   WAN address to prove possession of the DNS name to obtain a WebPKI
+   CA-signed certificate (that is, the CPE fullfills the DNS or HTTP
+   challenge discussed in ACME [RFC8555]).  However, a CPE's WAN address
+   will not be a public IPv4 address if the CPE is behind another layer
+   of NAT (either a CGN or another on-premise NAT), reducing the success
+   of this mechanism to a CPE's WAN IPv6 address.  If the subscribers
+   IPv4 or IPv6 address is included in the certificate name (e.g., "dyn-
+   192-0-2-1.example.net") then DNR will experience IP renumbering
+   complications identical to DDR, described above.  The former
+   mechanism has the following limitations when ACME protocol is used
+   for certificate issuance:
+
+   *  Each CPE would have to create a different account for ordering a
+      certificate.  Where a large scale of CPEs request certificate
+      issuance for a large number of subdomains it could be treated as
+      an attacker by the CPE to overwhelm the CA.
+
+   *  The CPE would have to host a Internet-facing HTTP server or a DNS
+      authoritative server to complete the HTTP or DNS challenge.
 
 5.2.  Managed CPEs
 
@@ -700,6 +722,13 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    The ISP can assign a unique FQDN (e.g., "cpe1.example.com") and a
    domain-validated public certificate to the encrypted DNS forwarder
    hosted on the CPE.
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 13]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
 
    Automatic Certificate Management Environment (ACME) [RFC8555] can be
    used by the ISP to automate certificate management functions such as
@@ -722,14 +751,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
       private encrypted DNS resolver only be accessible from within the
       local network.
 
-
-
-
-Boucadair, et al.         Expires 20 April 2023                [Page 13]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
-
-
    *  The encrypted DNS forwarder will either be configured to use the
       ISP's or a 3rd party encrypted DNS resolver.
 
@@ -744,6 +765,26 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    [I-D.ietf-add-split-horizon-authority]) to resolve split-horizon
    domains (e.g., provider's private name discussed in Section 2 of
    [RFC6731]).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 14]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
 
              ,--,--,--.                         ,--,
            ,'         Internal   Managed     ,-'    '-     3rd Party
@@ -770,22 +811,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    services.  The internal CPE ignores the DNS configuration that it
    receives from the managed CPE.
 
-
-
-
-
-
-
-
-
-
-
-
-Boucadair, et al.         Expires 20 April 2023                [Page 14]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
-
-
               ,--,--,--.                         ,--,
             ,'         Internal   Managed     ,-'    '-     3rd Party
      Host--(  Network#A  CPE--------CPE------(   ISP   )--- DNS Server
@@ -802,6 +827,19 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
              CPE.
 
         Figure 8: Example of an Internal CPE Hosting a Forwarder (2)
+
+
+
+
+
+
+
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 15]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 6.  Legacy CPEs
@@ -834,14 +872,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
    Thanks to Eliot Lear for the ISE review.
 
-
-
-
-Boucadair, et al.         Expires 20 April 2023                [Page 15]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
-
-
 10.  References
 
 10.1.  Normative References
@@ -860,6 +890,13 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
               Progress, Internet-Draft, draft-ietf-add-dnr-13, 13 August
               2022, <https://www.ietf.org/archive/id/draft-ietf-add-dnr-
               13.txt>.
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 16]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
 
 10.2.  Informative References
 
@@ -887,17 +924,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
               Extensions", RFC 2132, DOI 10.17487/RFC2132, March 1997,
               <https://www.rfc-editor.org/info/rfc2132>.
 
-
-
-
-
-
-
-Boucadair, et al.         Expires 20 April 2023                [Page 16]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
-
-
    [RFC3646]  Droms, R., Ed., "DNS Configuration options for Dynamic
               Host Configuration Protocol for IPv6 (DHCPv6)", RFC 3646,
               DOI 10.17487/RFC3646, December 2003,
@@ -917,6 +943,16 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
               M. Azinger, "IANA-Reserved IPv4 Prefix for Shared Address
               Space", BCP 153, RFC 6598, DOI 10.17487/RFC6598, April
               2012, <https://www.rfc-editor.org/info/rfc6598>.
+
+
+
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 17]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
 
    [RFC6731]  Savolainen, T., Kato, J., and T. Lemon, "Improved
               Recursive DNS Server Selection for Multi-Interfaced
@@ -943,17 +979,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
               BCP 153, RFC 8190, DOI 10.17487/RFC8190, June 2017,
               <https://www.rfc-editor.org/info/rfc8190>.
 
-
-
-
-
-
-
-Boucadair, et al.         Expires 20 April 2023                [Page 17]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
-
-
    [RFC8415]  Mrugalski, T., Siodelski, M., Volz, B., Yourtchenko, A.,
               Richardson, M., Jiang, S., Lemon, T., and T. Winters,
               "Dynamic Host Configuration Protocol for IPv6 (DHCPv6)",
@@ -977,6 +1002,13 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
               Kasten, "Automatic Certificate Management Environment
               (ACME)", RFC 8555, DOI 10.17487/RFC8555, March 2019,
               <https://www.rfc-editor.org/info/rfc8555>.
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 18]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
 
    [RFC8585]  Palet Martinez, J., Liu, H. M.-H., and M. Kawashima,
               "Requirements for IPv6 Customer Edge Routers to Support
@@ -1002,14 +1034,6 @@ Authors' Addresses
    Orange
    35000 Rennes
    France
-
-
-
-Boucadair, et al.         Expires 20 April 2023                [Page 18]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
-
-
    Email: mohamed.boucadair@orange.com
 
 
@@ -1034,6 +1058,14 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    Tommy Jensen
    Microsoft
    United States of America
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 19]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
+
    Email: tojens@microsoft.com
 
 
@@ -1061,4 +1093,28 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
-Boucadair, et al.         Expires 20 April 2023                [Page 19]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 20]
