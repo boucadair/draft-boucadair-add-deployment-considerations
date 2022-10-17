@@ -5,14 +5,14 @@
 Network Working Group                                  M. Boucadair, Ed.
 Internet-Draft                                                    Orange
 Intended status: Informational                             T. Reddy, Ed.
-Expires: 15 April 2023                                             Nokia
+Expires: 20 April 2023                                             Nokia
                                                                  D. Wing
                                                                   Citrix
                                                                  N. Cook
                                                             Open-Xchange
                                                                T. Jensen
                                                                Microsoft
-                                                         12 October 2022
+                                                         17 October 2022
 
 
     Discovery of Encrypted DNS Resolvers: Deployment Considerations
@@ -48,12 +48,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 April 2023.
+   This Internet-Draft will expire on 20 April 2023.
 
 
 
 
-Boucadair, et al.         Expires 15 April 2023                 [Page 1]
+Boucadair, et al.         Expires 20 April 2023                 [Page 1]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
@@ -89,12 +89,12 @@ Table of Contents
      5.3.  Unmanaged CPEs  . . . . . . . . . . . . . . . . . . . . .  13
    6.  Legacy CPEs . . . . . . . . . . . . . . . . . . . . . . . . .  15
    7.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
-   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  16
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
+   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  15
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  16
      10.2.  Informative References . . . . . . . . . . . . . . . . .  16
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Boucadair, et al.         Expires 15 April 2023                 [Page 2]
+Boucadair, et al.         Expires 20 April 2023                 [Page 2]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
@@ -165,7 +165,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
-Boucadair, et al.         Expires 15 April 2023                 [Page 3]
+Boucadair, et al.         Expires 20 April 2023                 [Page 3]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
@@ -221,7 +221,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
-Boucadair, et al.         Expires 15 April 2023                 [Page 4]
+Boucadair, et al.         Expires 20 April 2023                 [Page 4]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
@@ -277,7 +277,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
-Boucadair, et al.         Expires 15 April 2023                 [Page 5]
+Boucadair, et al.         Expires 20 April 2023                 [Page 5]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
@@ -333,7 +333,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
-Boucadair, et al.         Expires 15 April 2023                 [Page 6]
+Boucadair, et al.         Expires 20 April 2023                 [Page 6]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
@@ -389,7 +389,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
-Boucadair, et al.         Expires 15 April 2023                 [Page 7]
+Boucadair, et al.         Expires 20 April 2023                 [Page 7]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
@@ -445,7 +445,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
-Boucadair, et al.         Expires 15 April 2023                 [Page 8]
+Boucadair, et al.         Expires 20 April 2023                 [Page 8]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
@@ -501,7 +501,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
-Boucadair, et al.         Expires 15 April 2023                 [Page 9]
+Boucadair, et al.         Expires 20 April 2023                 [Page 9]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
@@ -557,7 +557,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
-Boucadair, et al.         Expires 15 April 2023                [Page 10]
+Boucadair, et al.         Expires 20 April 2023                [Page 10]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
@@ -613,7 +613,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
-Boucadair, et al.         Expires 15 April 2023                [Page 11]
+Boucadair, et al.         Expires 20 April 2023                [Page 11]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
@@ -669,7 +669,7 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
 
 
-Boucadair, et al.         Expires 15 April 2023                [Page 12]
+Boucadair, et al.         Expires 20 April 2023                [Page 12]
 
 Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
@@ -677,22 +677,10 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    DNR requires proving possession of an FQDN as the encrypted
    resolver's certificate contains the FQDN.  The entity (e.g., ISP,
    network administrator) managing the CPE would assign a unique FQDN to
-   the CPE.  There are two mechanisms for the CPE to obtain the
-   certificate for the FQDN: using one of its WAN IP addresses or
+   the CPE.  The CPE can obtain the certificate for the FQDN by
    requesting its signed certificate from an Internet-facing server used
    for remote CPE management (e.g., the Auto Configuration Server (ACS)
-   in the CPE WAN Management Protocol [TR-069]).  If using a CPE's WAN
-   IP address, the CPE needs a public IPv4 or a global unicast IPv6
-   address together with DNS A or AAAA records pointing to that CPE's
-   WAN address to prove possession of the DNS name to obtain a WebPKI
-   CA-signed certificate (that is, the CPE fullfills the DNS or HTTP
-   challenge discussed in ACME [RFC8555]).  However, a CPE's WAN address
-   will not be a public IPv4 address if the CPE is behind another layer
-   of NAT (either a CGN or another on-premise NAT), reducing the success
-   of this mechanism to a CPE's WAN IPv6 address.  If the subscribers
-   IPv4 or IPv6 address is included in the certificate name (e.g., "dyn-
-   192-0-2-1.example.net") then DNR will experience IP renumbering
-   complications identical to DDR, described above.
+   in the CPE WAN Management Protocol [TR-069]).
 
 5.2.  Managed CPEs
 
@@ -723,13 +711,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    The approach specified in Section 5.2 does not apply for hosting a
    DNS forwarder in an unmanaged CPE.
 
-
-
-Boucadair, et al.         Expires 15 April 2023                [Page 13]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
-
-
    The unmanaged CPE administrator can host an encrypted DNS forwarder
    on the unmanaged CPE.  This assumes the following:
 
@@ -740,6 +721,14 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
       FQDN to the CPE.  The encrypted DNS forwarder will act like a
       private encrypted DNS resolver only be accessible from within the
       local network.
+
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 13]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
 
    *  The encrypted DNS forwarder will either be configured to use the
       ISP's or a 3rd party encrypted DNS resolver.
@@ -774,24 +763,28 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
 
           Figure 7: Example of an Internal CPE Hosting a Forwarder
 
-
-
-
-
-
-
-
-Boucadair, et al.         Expires 15 April 2023                [Page 14]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
-
-
    An unmanaged CPE can be used to host an encrypted DNS forwarder even
    if the managed CPE does not support DNR.  In the example depicted in
    Figure 8, the ISP uses DHCP to provision Do53 resolvers to managed
    CPEs, while DNR is enabled between the internal CPE and the hosts it
    services.  The internal CPE ignores the DNS configuration that it
    receives from the managed CPE.
+
+
+
+
+
+
+
+
+
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 14]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
 
               ,--,--,--.                         ,--,
             ,'         Internal   Managed     ,-'    '-     3rd Party
@@ -831,17 +824,6 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    [I-D.ietf-add-dnr].  Likewise, DDR-related security considerations
    are discussed in Section 7 of [I-D.ietf-add-ddr].
 
-
-
-
-
-
-
-Boucadair, et al.         Expires 15 April 2023                [Page 15]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
-
-
 8.  IANA Considerations
 
    This document does not require any IANA action.
@@ -851,6 +833,14 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    This text was initially part of [I-D.ietf-add-dnr].
 
    Thanks to Eliot Lear for the ISE review.
+
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 15]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
 
 10.  References
 
@@ -884,19 +874,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    [I-D.ietf-opsawg-add-encrypted-dns]
               Boucadair, M. and T. Reddy.K, "RADIUS Extensions for
               Encrypted DNS", Work in Progress, Internet-Draft, draft-
-              ietf-opsawg-add-encrypted-dns-02, 5 October 2022,
+              ietf-opsawg-add-encrypted-dns-03, 6 October 2022,
               <https://www.ietf.org/archive/id/draft-ietf-opsawg-add-
-              encrypted-dns-02.txt>.
-
-
-
-
-
-
-Boucadair, et al.         Expires 15 April 2023                [Page 16]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
-
+              encrypted-dns-03.txt>.
 
    [RFC1918]  Rekhter, Y., Moskowitz, B., Karrenberg, D., de Groot, G.
               J., and E. Lear, "Address Allocation for Private
@@ -906,6 +886,17 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    [RFC2132]  Alexander, S. and R. Droms, "DHCP Options and BOOTP Vendor
               Extensions", RFC 2132, DOI 10.17487/RFC2132, March 1997,
               <https://www.rfc-editor.org/info/rfc2132>.
+
+
+
+
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 16]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
 
    [RFC3646]  Droms, R., Ed., "DNS Configuration options for Dynamic
               Host Configuration Protocol for IPv6 (DHCPv6)", RFC 3646,
@@ -947,17 +938,21 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
               RFC 8106, DOI 10.17487/RFC8106, March 2017,
               <https://www.rfc-editor.org/info/rfc8106>.
 
-
-
-Boucadair, et al.         Expires 15 April 2023                [Page 17]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
-
-
    [RFC8190]  Bonica, R., Cotton, M., Haberman, B., and L. Vegoda,
               "Updates to the Special-Purpose IP Address Registries",
               BCP 153, RFC 8190, DOI 10.17487/RFC8190, June 2017,
               <https://www.rfc-editor.org/info/rfc8190>.
+
+
+
+
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 17]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
 
    [RFC8415]  Mrugalski, T., Siodelski, M., Volz, B., Yourtchenko, A.,
               Richardson, M., Jiang, S., Lemon, T., and T. Winters,
@@ -1001,21 +996,20 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
               network protocols; Stage 3 (Release 16)", December 2019,
               <http://www.3gpp.org/DynaReport/24008.htm>.
 
-
-
-
-
-Boucadair, et al.         Expires 15 April 2023                [Page 18]
-
-Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
-
-
 Authors' Addresses
 
    Mohamed Boucadair (editor)
    Orange
    35000 Rennes
    France
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 18]
+
+Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
+
+
    Email: mohamed.boucadair@orange.com
 
 
@@ -1061,4 +1055,10 @@ Authors' Addresses
 
 
 
-Boucadair, et al.         Expires 15 April 2023                [Page 19]
+
+
+
+
+
+
+Boucadair, et al.         Expires 20 April 2023                [Page 19]

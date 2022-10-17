@@ -225,7 +225,7 @@
           Discovery of Designated Resolvers (DDR) <xref
           target="I-D.ietf-add-ddr"></xref> or the Discovery of
           Network-designated Resolvers (DNR) <xref
-          target="I-D.ietf-add-dnr"></xref> procedures. </t>
+          target="I-D.ietf-add-dnr"></xref> procedures.</t>
         </list></t>
 
       <t>This document is meant to assist future deployments and (hopefully)
@@ -653,23 +653,10 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Resolver
         <t>DNR requires proving possession of an FQDN as the encrypted
         resolver's certificate contains the FQDN. The entity (e.g., ISP,
         network administrator) managing the CPE would assign a unique FQDN to
-        the CPE. There are two mechanisms for the CPE to obtain the
-        certificate for the FQDN: using one of its WAN IP addresses or
-        requesting its signed certificate from an Internet-facing server used
-        for remote CPE management (e.g., the Auto Configuration Server (ACS)
-        in the CPE WAN Management Protocol <xref target="TR-069"></xref>). If
-        using a CPE's WAN IP address, the CPE needs a public IPv4 or a global
-        unicast IPv6 address together with DNS A or AAAA records pointing to
-        that CPE's WAN address to prove possession of the DNS name to obtain a
-        WebPKI CA-signed certificate (that is, the CPE fullfills the DNS or
-        HTTP challenge discussed in ACME <xref target="RFC8555"></xref>).
-        However, a CPE's WAN address will not be a public IPv4 address if the
-        CPE is behind another layer of NAT (either a CGN or another on-premise
-        NAT), reducing the success of this mechanism to a CPE's WAN IPv6
-        address. If the subscribers IPv4 or IPv6 address is included in the
-        certificate name (e.g., "dyn- 192-0-2-1.example.net") then DNR will
-        experience IP renumbering complications identical to DDR, described
-        above.</t>
+        the CPE. The CPE can obtain the certificate for the FQDN by requesting
+        its signed certificate from an Internet-facing server used for remote
+        CPE management (e.g., the Auto Configuration Server (ACS) in the CPE
+        WAN Management Protocol <xref target="TR-069"></xref>).</t>
       </section>
 
       <section anchor="forwarder_m" title="Managed CPEs">
