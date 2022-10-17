@@ -672,9 +672,9 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Resolver
         above. The former mechanism has the following limitations when ACME
         protocol is used for certificate issuance:<list style="symbols">
             <t>Each CPE would have to create a different account for ordering
-            a certificate. Where a large scale of CPEs request certificate
+            a certificate. When a large scale of CPEs request certificate
             issuance for a large number of subdomains it could be treated as
-            an attacker by the CPE to overwhelm the CA. </t>
+            an attacker by the CA to overwhelm it. </t>
 
             <t>The CPE would have to host a Internet-facing HTTP server or a
             DNS authoritative server to complete the HTTP or DNS challenge.

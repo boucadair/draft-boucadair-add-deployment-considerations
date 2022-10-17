@@ -697,9 +697,9 @@ Internet-Draft    Discovery of Encrypted DNS Resolvers      October 2022
    for certificate issuance:
 
    *  Each CPE would have to create a different account for ordering a
-      certificate.  Where a large scale of CPEs request certificate
+      certificate.  When a large scale of CPEs request certificate
       issuance for a large number of subdomains it could be treated as
-      an attacker by the CPE to overwhelm the CA.
+      an attacker by the CA to overwhelm it.
 
    *  The CPE would have to host a Internet-facing HTTP server or a DNS
       authoritative server to complete the HTTP or DNS challenge.
