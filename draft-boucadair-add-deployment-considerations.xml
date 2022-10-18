@@ -225,7 +225,7 @@
           Discovery of Designated Resolvers (DDR) <xref
           target="I-D.ietf-add-ddr"></xref> or the Discovery of
           Network-designated Resolvers (DNR) <xref
-          target="I-D.ietf-add-dnr"></xref> procedures. </t>
+          target="I-D.ietf-add-dnr"></xref> procedures.</t>
         </list></t>
 
       <t>This document is meant to assist future deployments and (hopefully)
@@ -669,7 +669,17 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Resolver
         address. If the subscribers IPv4 or IPv6 address is included in the
         certificate name (e.g., "dyn- 192-0-2-1.example.net") then DNR will
         experience IP renumbering complications identical to DDR, described
-        above.</t>
+        above. The former mechanism has the following limitations when ACME
+        protocol is used for certificate issuance:<list style="symbols">
+            <t>Each CPE would have to create a different account for ordering
+            a certificate. When a large scale of CPEs request certificate
+            issuance for a large number of subdomains it could be treated as
+            an attacker by the CA to overwhelm it. </t>
+
+            <t>The CPE would have to host a Internet-facing HTTP server or a
+            DNS authoritative server to complete the HTTP or DNS challenge.
+            </t>
+          </list></t>
       </section>
 
       <section anchor="forwarder_m" title="Managed CPEs">
