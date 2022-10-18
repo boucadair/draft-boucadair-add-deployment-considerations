@@ -126,7 +126,7 @@
       contexts.</t>
 
       <t>This document does not intend to provide deployment recommendations,
-      but is meant to exemplify how operators can enabled the encrypted DNS
+      but is meant to exemplify how operators can enable the encrypted DNS
       discovery mechanisms. In addition, the document illustrates the
       feasibility of hosting encrypted DNS forwarders in Customer Premises
       Equipment (CPEs).</t>
@@ -599,7 +599,7 @@ Host--(    Network#A   CPE----CPE---(    DNS Resolver )
             </figure></t>
 
           <t>Similar to managed CPEs, a user may modify the default DNS
-          configuration of an unmanaged CPE to use his/her favorite encryptdd
+          configuration of an unmanaged CPE to use his/her favorite encrypted
           DNS resolvers instead. Encrypted DNS sessions can be established
           directly between a host and a 3rd Party DNS resolver (see <xref
           target="internal_3"></xref>).</t>
@@ -661,24 +661,24 @@ Host--(  Network#A  CPE----CPE---(   ISP   )--- DNS Resolver
         using a CPE's WAN IP address, the CPE needs a public IPv4 or a global
         unicast IPv6 address together with DNS A or AAAA records pointing to
         that CPE's WAN address to prove possession of the DNS name to obtain a
-        WebPKI CA-signed certificate (that is, the CPE fullfills the DNS or
+        WebPKI CA-signed certificate (that is, the CPE fulfills the DNS or
         HTTP challenge discussed in ACME <xref target="RFC8555"></xref>).
         However, a CPE's WAN address will not be a public IPv4 address if the
         CPE is behind another layer of NAT (either a CGN or another on-premise
         NAT), reducing the success of this mechanism to a CPE's WAN IPv6
         address. If the subscribers IPv4 or IPv6 address is included in the
-        certificate name (e.g., "dyn- 192-0-2-1.example.net") then DNR will
+        certificate name (e.g., "dyn-192-0-2-1.example.net") then DNR will
         experience IP renumbering complications identical to DDR, described
         above. The former mechanism has the following limitations when ACME
         protocol is used for certificate issuance:<list style="symbols">
             <t>Each CPE would have to create a different account for ordering
             a certificate. When a large scale of CPEs request certificate
-            issuance for a large number of subdomains it could be treated as
-            an attacker by the CA to overwhelm it. </t>
+            issuance for a large number of subdomains, it could be treated as
+            an attacker by the certificate authorities to overwhelm it.</t>
 
-            <t>The CPE would have to host a Internet-facing HTTP server or a
-            DNS authoritative server to complete the HTTP or DNS challenge.
-            </t>
+            <t>The CPE would have to host an Internet-facing HTTP server or a
+            DNS authoritative server to complete the HTTP or DNS
+            challenge.</t>
           </list></t>
       </section>
 
@@ -794,7 +794,7 @@ Legend:
       options defined in Sections 4, 5, and 6 of <xref
       target="I-D.ietf-add-dnr"></xref> won't be able to learn the encrypted
       DNS resolver hosted by the ISP, in particular. If the ADN is not
-      discovered using DHCP/RA, such hosts will have to fallback to use
+      discovered using DHCP/RA, such hosts will have to fall back to use
       discovery using the resolver IP address as defined in <xref section="4"
       target="I-D.ietf-add-ddr"></xref> to discover the designated
       resolvers.</t>
